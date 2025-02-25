@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Moon, Sun, Facebook, Instagram } from 'lucide-react';
+import { logo } from '../assets/images';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,49 +54,73 @@ const Navbar = () => {
     }
   };
 
-  const menuItems = [
+  const centerMenuItems = [
     { title: 'Home', href: '#' },
     { title: 'Gallery', href: '#Gallery' },
     { title: 'About', href: '#about' },
-    { title: 'Contact', href: '#contact' }
   ];
+
+  const rightMenuItems = [
+    { title: 'Shop', href: '#shop' },
+    { title: 'Contact', href: '#contact' },
+  ];
+
+  const allMenuItems = [...centerMenuItems, ...rightMenuItems];
 
   return (
     <nav className="fixed top-0 w-full dark:bg-gray-900 shadow-lg z-50
     iscrolled:bg-white dark:shadow-lg dark:text-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+          {/* Left: Logo */}
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="flex-shrink-0 font-bold text-2xl text-blue-600 dark:text-blue-400 
-            iscrolled:text-gray-700 dark:iscrolled:text-gray-200"
+            className="flex-shrink-0"
           >
-            Logo
+            <img src={logo} alt="logo" className='h-16 w-auto object-contain max-w-[150px]' />
           </motion.div>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            {menuItems.map((item) => (
-              <motion.a
-                key={item.title}
-                href={item.href}
-                className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+          {/* Desktop Menu - Three Section Layout */}
+          <div className="hidden md:flex md:flex-1 md:justify-between items-center">
+            {/* Center: Navigation Links */}
+            <div className="flex-1"></div> {/* Spacer */}
+            <div className="flex justify-center space-x-8">
+              {centerMenuItems.map((item) => (
+                <motion.a
+                  key={item.title}
+                  href={item.href}
+                  className="text-gray-700 dark:text-gray-200 hover:text-[#4AA625] dark:hover:text-[#4AA625] font-serif transition-colors duration-200"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {item.title}
+                </motion.a>
+              ))}
+            </div>
+            
+            {/* Right: Shop, Contact, Theme Toggle */}
+            <div className="flex items-center justify-end flex-1 space-x-8">
+              {rightMenuItems.map((item) => (
+                <motion.a
+                  key={item.title}
+                  href={item.href}
+                  className="text-gray-700 dark:text-gray-200 hover:text-[#4AA625] dark:hover:text-[#4AA625] font-serif transition-colors duration-200"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {item.title}
+                </motion.a>
+              ))}
+              <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={toggleTheme}
+                className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+                aria-label="Toggle theme"
               >
-                {item.title}
-              </motion.a>
-            ))}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
-              aria-label="Toggle theme"
-            >
-              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </motion.button>
+                {isDark ? <Sun className="w-5 h-5 text-[#FC930B]" /> : <Moon className="w-5 h-5 text-[#4AA625]" />}
+              </motion.button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -104,7 +129,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={toggleMenu}
-              className="p-2 rounded-md text-gray-700 dark:text-gray-200"
+              className="p-2 rounded-md text-[#4AA625] dark:text-[#4AA625]"
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -121,17 +146,17 @@ const Navbar = () => {
             animate="open"
             exit="closed"
             variants={menuVariants}
-            className="md:hidden fixed inset-0 top-16 bg-white dark:bg-gray-900 z-40"
+            className="md:hidden fixed inset-0 top-16 bg-white dark:bg-gray-900 z-40 flex flex-col"
           >
-            <div className="flex flex-col h-full px-4 pt-8 pb-6">
-              <div className="flex-grow">
-                {menuItems.map((item, i) => (
+            <div className="flex flex-col h-full px-4 pt-8 pb-6 flex-grow">
+              <div className="flex-grow flex flex-col items-center justify-center">
+                {allMenuItems.map((item, i) => (
                   <motion.a
                     key={item.title}
                     href={item.href}
                     variants={linkVariants}
                     custom={i}
-                    className="block text-2xl font-semibold py-4 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                    className="block text-3xl font-semibold py-5 text-gray-700 dark:text-gray-200 hover:text-[#4AA625] dark:hover:text-[#4AA625] transition-colors duration-200 text-center"
                     onClick={toggleMenu}
                   >
                     {item.title}
@@ -139,14 +164,23 @@ const Navbar = () => {
                 ))}
               </div>
               
-              {/* Theme Toggle */}
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
-                <div className="flex justify-center space-x-8">
+              {/* Theme Toggle and Social Links */}
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-6 w-full fixed bottom-0 left-0 bg-white dark:bg-gray-900 pb-8">
+                <div className="flex justify-center space-x-8 items-center">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    onClick={toggleTheme}
+                    className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-[#4AA625] dark:text-[#FC930B]"
+                    aria-label="Toggle theme"
+                  >
+                    {isDark ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
+                  </motion.button>
                   <motion.a
                     href="#"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                    className="text-[#4AA625] dark:text-[#4AA625] hover:text-[#FC930B] dark:hover:text-[#FC930B]"
                     aria-label="Instagram"
                   >
                     <Instagram className="w-6 h-6" />
@@ -155,7 +189,7 @@ const Navbar = () => {
                     href="#"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                    className="text-[#4AA625] dark:text-[#4AA625] hover:text-[#FC930B] dark:hover:text-[#FC930B]"
                     aria-label="X (Twitter)"
                   >
                     {/* Custom X icon since it's not in Lucide */}
@@ -168,7 +202,7 @@ const Navbar = () => {
                     href="#"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
+                    className="text-[#4AA625] dark:text-[#4AA625] hover:text-[#FC930B] dark:hover:text-[#FC930B]"
                     aria-label="Facebook"
                   >
                     <Facebook className="w-6 h-6" />
