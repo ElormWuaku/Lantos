@@ -1,10 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Moon, Sun, Facebook, Instagram } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 20;
+      if (isScrolled !== isScrolled) {
+        setIsScrolled(isScrolled);
+      }  
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isScrolled]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleTheme = () => {
@@ -48,13 +61,15 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 w-full bg-white dark:bg-gray-900 shadow-lg z-50">
+    <nav className="fixed top-0 w-full dark:bg-gray-900 shadow-lg z-50
+    iscrolled:bg-white dark:shadow-lg dark:text-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="flex-shrink-0 font-bold text-2xl text-blue-600 dark:text-blue-400"
+            className="flex-shrink-0 font-bold text-2xl text-blue-600 dark:text-blue-400 
+            iscrolled:text-gray-700 dark:iscrolled:text-gray-200"
           >
             Logo
           </motion.div>
@@ -124,7 +139,7 @@ const Navbar = () => {
                 ))}
               </div>
               
-              {/* Updated Social Links - Removed TikTok */}
+              {/* Theme Toggle */}
               <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
                 <div className="flex justify-center space-x-8">
                   <motion.a

@@ -1,9 +1,15 @@
-import React from "react";
+import { hero } from "../../../assets/images";
 
 const Hero = () => {
   return (
-    <div className="p-6 flex justify-center items-center align-middle h-[60vh] border-b-2">
-      <h4 className="text-4xl font-bold">Hero Section</h4>
+    <div className="w-full min-h-screen flex items-center justify-center border-b-8 border-gray-50 px-4 py-12"
+    style={{backgroundImage: `url(${hero})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+     <div className="text-center mx-w-4xl mx-auto">
+      <h4 className="text-5xl md:text-6xl font-bold text-cyan-50 leading-tight">READY RENT</h4>
+      <div>
+
+      </div>
+     </div>
     </div>
   );
 };
