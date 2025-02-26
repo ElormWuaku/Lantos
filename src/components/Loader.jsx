@@ -10,12 +10,21 @@ const RecycleLoader = ({ onComplete }) => {
   const [impactCounter, setImpactCounter] = useState(0);
   const containerRef = useRef(null);
   
-  // More recyclable items with educational facts
+  // Brand colors
+  const brandColors = {
+    green: "#4CAF32", // Canto's bright green
+    orange: "#FF9800", // Golden/orange from logo
+    grey: "#616161",   // Medium grey
+    lightGrey: "#9E9E9E", // Light grey
+    darkGrey: "#424242"  // Dark grey
+  };
+  
+  // More recyclable items with educational facts - adjusted colors
   const recyclableItems = [
     { 
       id: 1, 
       emoji: "🪵", 
-      color: "#8B4513", 
+      color: brandColors.orange, 
       name: "Wood", 
       size: 1.2,
       fact: "Recycling 1 ton of wood saves 17 trees and reduces CO₂ emissions by 1 ton",
@@ -24,7 +33,7 @@ const RecycleLoader = ({ onComplete }) => {
     { 
       id: 2, 
       emoji: "🥤", 
-      color: "#87CEEB", 
+      color: brandColors.green, 
       name: "Plastic", 
       size: 1,
       fact: "Recycling plastic takes 88% less energy than making it from raw materials",
@@ -33,7 +42,7 @@ const RecycleLoader = ({ onComplete }) => {
     { 
       id: 3, 
       emoji: "📰", 
-      color: "#F5F5DC", 
+      color: brandColors.lightGrey, 
       name: "Paper", 
       size: 0.9,
       fact: "Recycling 1 ton of paper saves 7,000 gallons of water & 17 trees",
@@ -42,7 +51,7 @@ const RecycleLoader = ({ onComplete }) => {
     { 
       id: 4, 
       emoji: "🔩", 
-      color: "#C0C0C0", 
+      color: brandColors.grey, 
       name: "Metal", 
       size: 0.8,
       fact: "Recycling aluminum uses 95% less energy than producing it from raw materials",
@@ -51,7 +60,7 @@ const RecycleLoader = ({ onComplete }) => {
     { 
       id: 5, 
       emoji: "🧶", 
-      color: "#FF6347", 
+      color: brandColors.orange, 
       name: "Textile", 
       size: 1.1,
       fact: "85% of textile waste goes to landfills, taking 200+ years to decompose",
@@ -60,7 +69,7 @@ const RecycleLoader = ({ onComplete }) => {
     { 
       id: 6, 
       emoji: "🧪", 
-      color: "#9370DB", 
+      color: brandColors.green, 
       name: "Glass", 
       size: 1.2,
       fact: "Glass can be recycled endlessly without loss in quality or purity",
@@ -69,7 +78,7 @@ const RecycleLoader = ({ onComplete }) => {
     { 
       id: 7, 
       emoji: "🔋", 
-      color: "#FFD700", 
+      color: brandColors.orange, 
       name: "Battery", 
       size: 0.75,
       fact: "Recycling batteries prevents toxic metals from entering our ecosystem",
@@ -101,7 +110,7 @@ const RecycleLoader = ({ onComplete }) => {
       y: Math.random() * 30 - 15,
       size: Math.random() * 4 + 2,
       duration: Math.random() * 1.5 + 0.8,
-      color: recyclableItems[Math.floor(Math.random() * recyclableItems.length)].color
+      color: [brandColors.green, brandColors.orange, brandColors.grey][Math.floor(Math.random() * 3)]
     }));
   };
   
@@ -156,22 +165,6 @@ const RecycleLoader = ({ onComplete }) => {
     };
   }, [onComplete, activeParticles]);
 
-  // User "toss in" gesture handling
-  const handleDragEnd = (_, info) => {
-    const { velocity } = info;
-    const speed = Math.sqrt(velocity.x ** 2 + velocity.y ** 2);
-    
-    // If the drag was fast enough (like a toss)
-    if (speed > 300) {
-      // Add a particle burst
-      setActiveParticles(true);
-      setParticles(generateParticles());
-      
-      // Increase impact counter
-      setImpactCounter(prev => prev + Math.floor(Math.random() * 10) + 3);
-    }
-  };
-
   return (
     <div className="fixed inset-0 flex flex-col justify-center items-center bg-gradient-to-b from-gray-800 to-gray-900 text-white z-50" ref={containerRef}>
       {/* Environmental Impact Counter */}
@@ -181,16 +174,17 @@ const RecycleLoader = ({ onComplete }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 0.8 }}
       >
-        <div className="bg-green-900 bg-opacity-40 px-4 py-2 rounded-lg border border-green-500 flex items-center">
-          <span className="text-green-400 mr-2">🌎</span>
+        <div className="bg-gray-800 bg-opacity-40 px-4 py-2 rounded-lg border border-green-500 flex items-center" style={{ borderColor: brandColors.green }}>
+          <span className="mr-2">🌎</span>
           <div>
-            <div className="text-xs text-green-300">Environmental Impact</div>
+            <div className="text-xs" style={{ color: brandColors.green }}>Environmental Impact</div>
             <motion.div 
-              className="font-bold text-green-400"
+              className="font-bold"
               key={impactCounter}
               initial={{ scale: 1 }}
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 0.5 }}
+              style={{ color: brandColors.green }}
             >
               {impactCounter} kg CO₂ Saved
             </motion.div>
@@ -206,7 +200,8 @@ const RecycleLoader = ({ onComplete }) => {
         transition={{ delay: 0.5 }}
       >
         <motion.div 
-          className="h-full bg-gradient-to-r from-green-500 to-teal-400 rounded-full"
+          className="h-full rounded-full"
+          style={{ background: `linear-gradient(to right, ${brandColors.green}, ${brandColors.orange})` }}
           initial={{ width: 0 }}
           animate={{ width: "100%" }}
           transition={{ duration: 4, ease: "easeInOut" }}
@@ -217,7 +212,8 @@ const RecycleLoader = ({ onComplete }) => {
       <div className="relative h-64 w-64 flex items-center justify-center mt-12">
         {/* Draggable area indicator */}
         <motion.div
-          className="absolute w-full h-full rounded-full border-2 border-gray-700 opacity-30"
+          className="absolute w-full h-full rounded-full border-2 opacity-30"
+          style={{ borderColor: brandColors.grey }}
           initial={{ scale: 0.9 }}
           animate={{ scale: [0.9, 1.1, 0.9] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
@@ -225,7 +221,8 @@ const RecycleLoader = ({ onComplete }) => {
         
         {/* Circular track for items */}
         <motion.div
-          className="absolute w-full h-full rounded-full border-4 border-dashed border-gray-700 opacity-50"
+          className="absolute w-full h-full rounded-full border-4 border-dashed opacity-50"
+          style={{ borderColor: brandColors.grey }}
           initial={{ opacity: 0, rotate: 0 }}
           animate={{ opacity: 0.5, rotate: 360 }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -307,7 +304,8 @@ const RecycleLoader = ({ onComplete }) => {
               </motion.div>
               
               <motion.span
-                className="text-xs bg-gray-800 px-2 py-1 rounded-full text-gray-300 z-10"
+                className="text-xs bg-gray-800 px-2 py-1 rounded-full z-10"
+                style={{ color: brandColors.orange }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: index * 0.15 + 0.5, duration: 0.5 }}
@@ -319,16 +317,17 @@ const RecycleLoader = ({ onComplete }) => {
               <AnimatePresence>
                 {selectedItem?.id === item.id && (
                   <motion.div
-                    className="absolute -top-20 w-48 bg-gray-800 p-3 rounded-lg border border-gray-700 text-xs"
+                    className="absolute -top-20 w-48 bg-gray-800 p-3 rounded-lg border text-xs"
+                    style={{ borderColor: brandColors.green }}
                     initial={{ opacity: 0, y: 10, scale: 0.9 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9, y: 5 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <div className="font-bold text-green-400 mb-1">Did you know?</div>
+                    <div className="font-bold mb-1" style={{ color: brandColors.green }}>Did you know?</div>
                     <p className="text-gray-300">{item.fact}</p>
-                    <div className="mt-1 text-green-300 font-semibold">Saves: {item.savedResource}</div>
-                    <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-800 border-r border-b border-gray-700 rotate-45"></div>
+                    <div className="mt-1 font-semibold" style={{ color: brandColors.orange }}>Saves: {item.savedResource}</div>
+                    <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-800 border-r border-b rotate-45" style={{ borderColor: brandColors.green }}></div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -336,14 +335,9 @@ const RecycleLoader = ({ onComplete }) => {
           );
         })}
         
-        {/* User can drag and "toss" items into recycling */}
-        <motion.div
-          className="absolute z-10 cursor-grab active:cursor-grabbing"
-          drag
-          dragConstraints={containerRef}
-          dragTransition={{ bounceStiffness: 300, bounceDamping: 10 }}
-          onDragEnd={handleDragEnd}
-          whileDrag={{ scale: 1.2 }}
+        {/* Replaced the drag and toss instruction with a simple click instruction */}
+        {/* <motion.div
+          className="absolute z-10"
           initial={{ opacity: 0 }}
           animate={{ 
             opacity: [0, 0.9, 0.9, 0],
@@ -356,21 +350,22 @@ const RecycleLoader = ({ onComplete }) => {
             repeatDelay: 2
           }}
         >
-          <div className="bg-gray-800 bg-opacity-70 p-2 rounded-full border border-gray-600 text-sm flex items-center">
+          <div className="bg-gray-800 bg-opacity-70 p-2 rounded-full border text-sm flex items-center" style={{ borderColor: brandColors.grey }}>
             <span className="mr-2 text-xl">👆</span>
-            <span>Drag & toss to recycle!</span>
+            <span>Click items to learn more!</span>
           </div>
-        </motion.div>
+        </motion.div> */}
         
-        {/* Center vortex/recycling symbol - enhanced */}
+        {/* Center vortex/recycling symbol - enhanced with brand colors */}
         <motion.div
-          className="absolute flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-500 to-teal-600 z-20"
+          className="absolute flex items-center justify-center w-20 h-20 rounded-full z-20"
+          style={{ background: `linear-gradient(135deg, ${brandColors.green}, ${brandColors.orange})` }}
           initial={{ opacity: 0, scale: 0, rotate: 0 }}
           animate={{ 
             opacity: 1, 
             scale: [0, 1.2, 1, 1.1, 1], 
             rotate: 360,
-            boxShadow: ["0 0 0px rgba(16, 185, 129, 0)", "0 0 30px rgba(16, 185, 129, 0.7)"]
+            boxShadow: ["0 0 0px rgba(76, 175, 50, 0)", "0 0 30px rgba(76, 175, 50, 0.7)"]
           }}
           transition={{ 
             duration: 2, 
@@ -432,7 +427,7 @@ const RecycleLoader = ({ onComplete }) => {
                 y: [0, -20, 0], 
                 opacity: 1, 
                 scale: 1.8,
-                filter: ["drop-shadow(0 0 0px rgba(16, 185, 129, 0))", "drop-shadow(0 0 15px rgba(16, 185, 129, 0.8))"]
+                filter: ["drop-shadow(0 0 0px rgba(76, 175, 50, 0))", "drop-shadow(0 0 15px rgba(76, 175, 50, 0.8))"]
               }}
               exit={{ y: -50, opacity: 0 }}
               transition={{ 
@@ -453,7 +448,8 @@ const RecycleLoader = ({ onComplete }) => {
             >
               <div className="text-6xl mb-2">{finalProduct.emoji}</div>
               <motion.div
-                className="text-sm px-4 py-1.5 bg-gradient-to-r from-green-500 to-teal-400 rounded-full font-medium shadow-lg"
+                className="text-sm px-4 py-1.5 rounded-full font-medium shadow-lg"
+                style={{ background: `linear-gradient(to right, ${brandColors.green}, ${brandColors.orange})` }}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 }}
@@ -465,7 +461,7 @@ const RecycleLoader = ({ onComplete }) => {
         </AnimatePresence>
       </div>
       
-      {/* Descriptive text - enhanced */}
+      {/* Descriptive text - enhanced with branded colors */}
       <AnimatePresence>
         {showText && (
           <motion.div
@@ -474,20 +470,21 @@ const RecycleLoader = ({ onComplete }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-green-400 via-teal-400 to-blue-400 bg-clip-text text-transparent px-4">
+            <h2 className="text-2xl font-bold px-4" style={{ background: `linear-gradient(to right, ${brandColors.green}, ${brandColors.orange})`, WebkitBackgroundClip: 'text', color: 'transparent' }}>
               Turning Waste Into Wonders
             </h2>
             <p className="text-gray-300 mt-3 max-w-md px-4 leading-relaxed">
               Transforming discarded materials into beautiful, functional objects through creative recycling. 
-              <span className="block mt-1 text-green-400 font-medium">
+              <span className="block mt-1 font-medium" style={{ color: brandColors.green }}>
                 Every item you recycle helps build a sustainable future.
               </span>
             </p>
             
             {/* Call to action button */}
             <motion.button
-              className="mt-6 bg-gradient-to-r from-green-500 to-teal-400 text-white px-6 py-2 rounded-full shadow-lg font-medium"
-              whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(16, 185, 129, 0.4)" }}
+              className="mt-6 text-white px-6 py-2 rounded-full shadow-lg font-medium"
+              style={{ background: `linear-gradient(to right, ${brandColors.green}, ${brandColors.orange})` }}
+              whileHover={{ scale: 1.05, boxShadow: `0 10px 25px -5px rgba(76, 175, 50, 0.4)` }}
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
