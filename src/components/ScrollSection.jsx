@@ -4,20 +4,18 @@ import PropTypes from 'prop-types';
 
 const ScrollSection = ({ children, delay = 0 }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.2 });
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
   const controls = useAnimation();
 
   useEffect(() => {
     if (isInView) {
       controls.start('visible');
-    } else {
-      controls.start('hidden');
-    }
+    } 
   }, [isInView, controls]);
 
   const sectionVariants = {
     hidden: { 
-      y: 100, 
+      y: 50, 
       opacity: 0,
     },
     visible: {
@@ -25,10 +23,10 @@ const ScrollSection = ({ children, delay = 0 }) => {
       opacity: 1,
       transition: {
         type: 'spring',
-        damping: 15,
-        stiffness: 100,
+        damping: 25,
+        stiffness: 120,
         delay: delay,
-        duration: 0.5
+        duration: 0.3
       }
     }
   };

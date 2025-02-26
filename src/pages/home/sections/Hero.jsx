@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { paint } from "../../../assets/images";
+import ScrollSection from "../../../components/ScrollSection";
 
-// Replace these with your actual brand colors
+
 const brandColors = {
   primary: "grey", 
   secondary: "#4AA625", 
@@ -73,6 +74,7 @@ const Hero = () => {
   };
 
   return (
+    <ScrollSection>
     <div className="relative h-screen overflow-hidden">
       {/* Background with parallax effect */}
       <div 
@@ -172,6 +174,7 @@ const Hero = () => {
         </motion.div>
       </motion.div>
     </div>
+    </ScrollSection>
   );
 };
 

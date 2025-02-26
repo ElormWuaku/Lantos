@@ -17,25 +17,35 @@ const Home = () => {
 
   return (
     <div>
+      <section id='home'>
       <ScrollSection>
         <Hero />
       </ScrollSection>
-      
+      </section>
+
+      <section id='about'>
       <ScrollSection delay={0.1}>
         <AboutProduct />
       </ScrollSection>
-      
+      </section>
+
+      <section id='innovator'>
       <ScrollSection delay={0.2}>
         <AboutInnovator />
       </ScrollSection>
-      
+      </section>
+
+      <section id='gallery'>
       <ScrollSection delay={0.3}>
         <Showcase />
       </ScrollSection>
-      
+      </section>
+
+      <section id='contact'>
       <ScrollSection delay={0.4}>
         <Contact />
       </ScrollSection>
+      </section>
     </div>
   );
 };

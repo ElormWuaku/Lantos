@@ -1,5 +1,3 @@
-import React from "react";
-
 const Showcase = () => {
   return (
     <div className="p-6 flex justify-center items-center align-middle h-[60vh] border-b-2">
