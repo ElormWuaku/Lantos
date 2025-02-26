@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Menu,
-  X,
-  Moon,
-  Sun,
-  Facebook,
-  Instagram,
-  ArrowRight,
-} from "lucide-react";
+import { Menu, X, Moon, Sun, Facebook, Instagram, ArrowRight } from "lucide-react";
 import { logo } from "../assets/images";
 
 const Navbar = () => {
@@ -106,8 +98,8 @@ const Navbar = () => {
   ];
 
   const rightMenuItems = [
-    { title: "Shop", href: "#shop", id: "shop", isButton: true },
-    { title: "Contact", href: "#contact", id: "contact", isButton: true },
+    { title: "Shop", href: "#shop", id: "shop" },
+    { title: "Contact", href: "#contact", id: "contact" },
   ];
 
   const allMenuItems = [...centerMenuItems, ...rightMenuItems];
@@ -260,22 +252,14 @@ const Navbar = () => {
                     variants={linkVariants}
                     custom={i}
                     className={`relative block text-3xl font-semibold py-5 transition-all duration-200 text-center ${
-                      item.isButton
-                        ? `my-2 py-3 px-8 rounded-full text-white ${
-                            isActive(item.id)
-                              ? "bg-gradient-to-r from-[#4AA625] to-[#68C643] dark:from-[#4AA625] dark:to-[#68C643] ring-2 ring-[#4AA625]/20 ring-offset-2 ring-offset-white dark:ring-offset-gray-900 shadow-lg shadow-[#4AA625]/20"
-                              : "bg-[#4AA625] hover:bg-gradient-to-r hover:from-[#4AA625] hover:to-[#68C643] dark:bg-[#4AA625] dark:hover:from-[#4AA625] dark:hover:to-[#68C643] hover:shadow-md hover:shadow-[#4AA625]/20"
-                          }`
-                        : `${
-                            isActive(item.id)
-                              ? "text-[#4AA625] dark:text-[#4AA625] font-bold"
-                              : "text-gray-700 dark:text-gray-200 hover:text-[#4AA625] dark:hover:text-[#4AA625]"
-                          }`
+                      isActive(item.id)
+                        ? "text-[#4AA625] dark:text-[#4AA625] font-bold"
+                        : "text-gray-700 dark:text-gray-200 hover:text-[#4AA625] dark:hover:text-[#4AA625]"
                     }`}
                     onClick={toggleMenu}
                   >
                     {item.title}
-                    {isActive(item.id) && !item.isButton && (
+                    {isActive(item.id) && (
                       <motion.div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
                         <div className="h-1 w-8 bg-[#4AA625] rounded-full"></div>
                       </motion.div>
@@ -316,7 +300,6 @@ const Navbar = () => {
                     className="text-[#4AA625] dark:text-[#4AA625] hover:text-[#FC930B] dark:hover:text-[#FC930B]"
                     aria-label="X (Twitter)"
                   >
-                    {/* Custom X icon since it's not in Lucide */}
                     <svg
                       className="w-6 h-6"
                       viewBox="0 0 24 24"
