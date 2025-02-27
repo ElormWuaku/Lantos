@@ -6,6 +6,7 @@ import Showcase from "./sections/Showcase";
 import Contact from "./sections/Contact";
 import ScrollSection from '../../components/ScrollSection';
 import Loader from '../../components/Loader';
+import Sustainability from './sections/Sustainability';
 
 const Home = () => {
   // Enable smooth scrolling
@@ -27,6 +28,12 @@ const Home = () => {
           <section id='home'>
             <ScrollSection>
               <Hero />
+            </ScrollSection>
+          </section>
+          
+          <section id='sustainability'>
+            <ScrollSection>
+              <Sustainability />
             </ScrollSection>
           </section>
 

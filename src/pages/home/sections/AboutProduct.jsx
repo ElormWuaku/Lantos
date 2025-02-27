@@ -1,3 +1,4 @@
+import { about } from "../../../assets/images";
 import ScrollSection from "../../../components/ScrollSection";
 
 const AboutProduct = () => {
@@ -25,7 +26,7 @@ const AboutProduct = () => {
             <div className="relative">
               <div className="absolute -left-4 -top-4 w-32 h-32 bg-emerald-100 rounded-full opacity-60"></div>
               <img 
-                src="/api/placeholder/480/380" 
+                src={about}
                 alt="Upcycled art piece created from waste materials" 
                 className="rounded-lg shadow-xl relative z-10 object-cover"
               />

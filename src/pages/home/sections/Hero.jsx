@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
-import { paint } from "../../../assets/images";
+import { hero2} from "../../../assets/images";
 import ScrollSection from "../../../components/ScrollSection";
 
 
@@ -81,7 +81,7 @@ const Hero = () => {
         ref={backgroundRef}
         className="absolute inset-0 bg-cover bg-center z-0"
         style={{ 
-          backgroundImage: `url(${paint})`,
+          backgroundImage: `url(${hero2})`,
           height: "120%", // Extra space for parallax movement
           top: "-10%",
         }}
