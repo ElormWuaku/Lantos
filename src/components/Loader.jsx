@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { motion, AnimatePresence } from "framer-motion";
 
-const TextLoader = ({ onComplete }) => {
+const Loader = ({ onComplete }) => {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [textSequence, setTextSequence] = useState(0);
@@ -209,8 +209,8 @@ const TextLoader = ({ onComplete }) => {
   );
 };
 
-TextLoader.propTypes = {
+Loader.propTypes = {
   onComplete: PropTypes.func
 };
 
-export default TextLoader;
+export default Loader;

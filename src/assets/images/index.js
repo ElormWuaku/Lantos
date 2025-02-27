@@ -6,5 +6,7 @@ import yellow from './yellow.jpg';
 import paint from './paint.jpg';
 import craftsman from './craftsman.jpg';
 import about from './about.jpg';
+import logo2 from './logo2.png';
 
-export { hero, logo, hero2, table, yellow, paint, craftsman, about };
+
+export { hero, logo, hero2, table, yellow, paint, craftsman, about, logo2 };

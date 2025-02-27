@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Moon, Sun, Facebook, Instagram, ArrowRight } from "lucide-react";
-import { logo } from "../assets/images";
+import { logo2 } from "../assets/images";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -119,7 +119,7 @@ const Navbar = () => {
           {/* Left: Logo */}
           <motion.div whileHover={{ scale: 1.05 }} className="flex-shrink-0">
             <img
-              src={logo}
+              src={logo2}
               alt="logo"
               className="h-16 w-auto object-contain max-w-[150px]"
             />
