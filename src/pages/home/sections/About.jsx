@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import ScrollSection from "../../../components/ScrollSection";
-import { art, hero2, table2 } from "../../../assets/images";
+import { hero2, hero4, table2 } from "../../../assets/images";
 
 const brandColors = {
   primary: "#4AA625", // Green as primary
@@ -139,7 +139,7 @@ const About = () => {
                   <div
                     className="w-full h-48 bg-gray-200"
                     style={{
-                      backgroundImage: `url(${art})`,
+                      backgroundImage: `url(${hero4})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                     }}
@@ -260,7 +260,7 @@ const About = () => {
                       className="font-bold text-4xl"
                       style={{ color: brandColors.secondary }}
                     >
-                      12+
+                      5+
                     </span>
                     <span
                       className="text-sm flex flex-col justify-center"
@@ -272,6 +272,38 @@ const About = () => {
                     </span>
                   </div>
                 </div>
+                {/* Add this button after the stats div */}
+                <motion.div
+                  className="mt-8"
+                  variants={textVariants}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <a
+                    href="#about-art"
+                    className="inline-flex items-center px-6 py-3 rounded-lg font-medium shadow-md"
+                    style={{
+                      background: `linear-gradient(to right, ${brandColors.primary}, ${brandColors.secondary})`,
+                      color: brandColors.light,
+                    }}
+                  >
+                    <span>More About Us</span>
+                    <svg
+                      className="w-5 h-5 ml-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      />
+                    </svg>
+                  </a>
+                </motion.div>
               </motion.div>
             </motion.div>
           </div>

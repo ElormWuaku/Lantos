@@ -11,6 +11,10 @@ import hero4 from './hero4.jpg';
 import wood from './wood.jpg';
 import product from './product.jpg';
 import art from './art.jpg';
+import art1 from './art1.jpg';
+import art3 from './art3.jpg';
+import art4 from './art4.jpg';
+import contactbg from './contactbg.jpg';
 
 
-export { hero, logo, hero2, table, table2, yellow, craftsman, about, logo2, hero4, wood, product, art };
+export { hero, logo, hero2, table, table2, yellow, craftsman, about, logo2, hero4, wood, product, art, art1, art3, art4, contactbg };

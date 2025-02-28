@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'; // Added useState import
 import Hero from "./sections/Hero";
-import AboutInnovator from "./sections/AboutInnovator";
 import Showcase from "./sections/Gallery";
-import Contact from "./sections/Contact";
 import ScrollSection from '../../components/ScrollSection';
 import Loader from '../../components/Loader';
 import Features from './sections/Features';
 import About from './sections/About';
+import AboutArt from './sections/AboutArt';
+import Contact from './sections/Contact';
 
 const Home = () => {
   // Enable smooth scrolling
@@ -43,21 +43,21 @@ const Home = () => {
             </ScrollSection>
           </section>
 
-          <section id='innovator'>
-            <ScrollSection delay={0.2}>
-              <AboutInnovator />
+          <section id='about-art'>
+            <ScrollSection delay={0.1}>
+              <AboutArt />
             </ScrollSection>
           </section>
 
           <section id='gallery'>
-            <ScrollSection delay={0.3}>
+            <ScrollSection delay={0.1}>
               <Showcase />
             </ScrollSection>
           </section>
 
           <section id='contact'>
-            <ScrollSection delay={0.4}>
-              <Contact />
+            <ScrollSection delay={0.1}>
+              <Contact/>
             </ScrollSection>
           </section>
         </div>
