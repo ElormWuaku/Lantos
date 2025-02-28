@@ -116,8 +116,11 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Left: Logo */}
-          <motion.div whileHover={{ scale: 1.05 }} className="flex-shrink-0">
+          {/* Left: Logo - Increased z-index to appear above mobile menu */}
+          <motion.div 
+            whileHover={{ scale: 1.05 }} 
+            className="flex-shrink-0 relative z-[60]"
+          >
             <img
               src={logo2}
               alt="logo"
@@ -191,8 +194,8 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          {/* Mobile Menu Button - Increased z-index to appear above mobile menu */}
+          <div className="md:hidden relative z-[60]">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -210,7 +213,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Adjusted to start below the navbar header */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -218,9 +221,9 @@ const Navbar = () => {
             animate="open"
             exit="closed"
             variants={menuVariants}
-            className="md:hidden fixed inset-0 top-16 bg-white dark:bg-gray-900 z-40 flex flex-col"
+            className="md:hidden fixed inset-0 top-[64px] bg-white dark:bg-gray-900 z-[55] flex flex-col"
           >
-            <div className="flex flex-col h-full px-4 pt-8 pb-6 flex-grow">
+            <div className="flex flex-col h-full px-4 pt-4 pb-6 flex-grow">
               {/* Current Page Indicator */}
               {activeSection && (
                 <motion.div

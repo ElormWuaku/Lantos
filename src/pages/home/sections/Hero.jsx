@@ -1,25 +1,22 @@
 import { useEffect, useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
-import { hero2} from "../../../assets/images";
 import ScrollSection from "../../../components/ScrollSection";
 
-
 const brandColors = {
-  primary: "grey", 
-  secondary: "#4AA625", 
-  accent: "#FC940E", // 
+  primary: "#4AA625", // Green as primary
+  secondary: "#FC940E", // Orange accent
   dark: "#222222",
-  light: "#FFFFFF"
+  light: "#FFFFFF",
 };
 
 const Hero = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: false, amount: 0.2 });
   const controls = useAnimation();
-  
-  // Parallax effect references
-  const backgroundRef = useRef(null);
-  const contentRef = useRef(null);
+
+  // References for animated elements
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
 
   useEffect(() => {
     if (isInView) {
@@ -29,151 +26,240 @@ const Hero = () => {
     }
   }, [isInView, controls]);
 
-  // Parallax scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      if (backgroundRef.current) {
-        const scrollY = window.scrollY;
-        backgroundRef.current.style.transform = `translateY(${scrollY * 0.5}px)`;
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  // Floating animation for decorative elements
+  const floatingAnimation = {
+    y: [0, -10, 0],
+    transition: {
+      duration: 5,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
+  };
 
   const heroVariants = {
-    hidden: { 
-      y: 50, 
+    hidden: {
       opacity: 0,
     },
     visible: {
-      y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
-        damping: 15,
-        stiffness: 100,
-        duration: 0.5,
-        staggerChildren: 0.1,
+        duration: 0.8,
+        staggerChildren: 0.2,
       },
     },
   };
 
   const childVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { 
-      y: 0, 
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
       opacity: 1,
       transition: {
         type: "spring",
         damping: 12,
         stiffness: 100,
-      }
+      },
+    },
+  };
+
+  const highlightVariants = {
+    hidden: { width: "0%" },
+    visible: {
+      width: "100%",
+      transition: {
+        delay: 0.7,
+        duration: 0.8,
+        ease: "easeInOut",
+      },
+    },
+  };
+
+  const handleScrollTo = (sectionId) => {
+    event.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
     <ScrollSection>
-    <div className="relative h-screen overflow-hidden">
-      {/* Background with parallax effect */}
-      <div 
-        ref={backgroundRef}
-        className="absolute inset-0 bg-cover bg-center z-0"
-        style={{ 
-          backgroundImage: `url(${hero2})`,
-          height: "120%", // Extra space for parallax movement
-          top: "-10%",
-        }}
-      />
-      
-      {/* Gradient overlay */}
-      <div 
-        className="absolute inset-0 z-10"
-        style={{ 
-          background: `linear-gradient(135deg, ${brandColors.primary}88 0%, ${brandColors.dark}aa 100%)`,
-        }}
-      />
+      <div className="relative h-screen overflow-hidden">
+        {/* Subtle gradient overlay for better text visibility */}
+        <div
+          className="absolute inset-0 z-10"
+          style={{
+            background: `linear-gradient(135deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.3) 100%)`,
+          }}
+        />
 
-      {/* Content */}
-      <motion.div
-        ref={ref}
-        initial="hidden"
-        animate={controls}
-        variants={heroVariants}
-        className="relative h-full flex flex-col justify-center items-center text-center px-4 z-20"
-      >
-        <div 
-          ref={contentRef}
-          className="max-w-4xl backdrop-blur-sm p-8 rounded-xl"
-          style={{ 
-            backgroundColor: `${brandColors.dark}70`,
-            border: `2px solid ${brandColors.secondary}40`,
-            boxShadow: `0 8px 32px -4px ${brandColors.primary}40`
+        {/* Animated decorative elements */}
+        <motion.div
+          animate={floatingAnimation}
+          className="absolute top-1/3 right-1/4 w-5 h-5 rounded-full z-20"
+          style={{ backgroundColor: brandColors.primary, opacity: 0.7 }}
+        />
+        <motion.div
+          animate={{
+            ...floatingAnimation,
+            transition: { ...floatingAnimation.transition, delay: 1 },
           }}
+          className="absolute top-1/2 right-1/5 w-3 h-3 rounded-full z-20"
+          style={{ backgroundColor: brandColors.secondary, opacity: 0.5 }}
+        />
+        <motion.div
+          animate={{
+            ...floatingAnimation,
+            transition: { ...floatingAnimation.transition, delay: 2 },
+          }}
+          className="absolute bottom-1/3 left-1/4 w-4 h-4 rounded-full z-20"
+          style={{ backgroundColor: brandColors.primary, opacity: 0.6 }}
+        />
+
+        {/* Main content */}
+        <motion.div
+          ref={ref}
+          initial="hidden"
+          animate={controls}
+          variants={heroVariants}
+          className="relative h-full flex flex-col justify-center items-start px-4 md:px-12 lg:px-20 z-30"
         >
-          <motion.h1 
-            variants={childVariants}
-            className="text-5xl md:text-7xl font-bold mb-4"
-            style={{ color: brandColors.light }}
-          >
-            Lanto&apos;s Creative Concept
-          </motion.h1>
-          
-          <motion.p 
-            variants={childVariants}
-            className="text-xl md:text-3xl mb-8"
-            style={{ color: brandColors.light }}
-          >
-            Transforming Trash into Treasure
-          </motion.p>
-          
-          <motion.div variants={childVariants} className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-            <motion.button 
-              whileHover={{ scale: 1.05, backgroundColor: brandColors.secondary }}
-              whileTap={{ scale: 0.98 }}
-              className="px-8 py-3 rounded-full text-lg font-medium transition-all duration-300"
-              style={{ 
-                backgroundColor: brandColors.primary,
-                color: brandColors.light,
-              }}
+          <div className="max-w-2xl">
+            <motion.div
+              variants={childVariants}
+              className="mb-2 text-lg font-medium inline-block"
+              style={{ color: brandColors.primary }}
             >
-              Explore Our Work
-            </motion.button>
-            
-            <motion.button 
-              whileHover={{ scale: 1.05, backgroundColor: brandColors.primary }}
-              whileTap={{ scale: 0.98 }}
-              className="px-8 py-3 rounded-full text-lg font-medium transition-all duration-300"
-              style={{ 
-                backgroundColor: "transparent",
-                color: brandColors.light,
-                border: `2px solid ${brandColors.secondary}`,
-              }}
+              Lanto&apos;s Creative Concept
+            </motion.div>
+
+            <div className="overflow-hidden">
+              <motion.h1
+                ref={titleRef}
+                variants={childVariants}
+                className="text-4xl md:text-6xl font-bold mb-2"
+                style={{ color: brandColors.dark }}
+              >
+                The Smart Table
+              </motion.h1>
+            </div>
+
+            <motion.div
+              variants={highlightVariants}
+              className="h-1 mb-6 rounded-full"
+              style={{ backgroundColor: brandColors.secondary }}
+            />
+
+            <div className="overflow-hidden">
+              <motion.h2
+                ref={subtitleRef}
+                variants={childVariants}
+                className="text-2xl md:text-3xl font-medium mb-4"
+                style={{ color: brandColors.dark }}
+              >
+                Where Technology Meets Sustainability
+              </motion.h2>
+            </div>
+
+            <motion.p
+              variants={childVariants}
+              className="text-base md:text-lg mb-8 max-w-xl"
+              style={{ color: brandColors.dark }}
             >
-              Contact Us
-            </motion.button>
-          </motion.div>
-        </div>
-        
-        {/* Scroll indicator */}
-        <motion.div 
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{ 
-            y: [0, 10, 0],
-            opacity: [0.4, 1, 0.4],
-          }}
-          transition={{ 
-            repeat: Infinity,
-            duration: 2
-          }}
-        >
-          <div className="w-8 h-12 rounded-full border-2 flex justify-center pt-2" style={{ borderColor: brandColors.light }}>
-            <div className="w-1 h-3 rounded-full" style={{ backgroundColor: brandColors.light }}></div>
+              Our flagship product seamlessly integrates cutting-edge technology
+              with sustainable design, transforming your living space with
+              multi-purpose, smart furniture that enhances modern living.
+            </motion.p>
+
+            <motion.div
+              variants={childVariants}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <a
+                href="#features"
+                onClick={() => handleScrollTo("features")}
+              >
+                <motion.button
+                  whileHover={{
+                    scale: 1.05,
+                    backgroundColor: brandColors.dark,
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-8 py-3 rounded-md text-lg font-medium transition-all duration-300"
+                  style={{
+                    backgroundColor: brandColors.primary,
+                    color: brandColors.light,
+                  }}
+                >
+                  Discover Features
+                </motion.button>
+              </a>
+
+              <a href="#about" onClick={() => handleScrollTo("about")}>
+                <motion.button
+                  whileHover={{
+                    scale: 1.05,
+                    backgroundColor: `${brandColors.secondary}22`,
+                    borderColor: brandColors.secondary,
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-8 py-3 rounded-md text-lg font-medium transition-all duration-300"
+                  style={{
+                    backgroundColor: "transparent",
+                    color: brandColors.dark,
+                    border: `2px solid ${brandColors.primary}`,
+                  }}
+                >
+                  Our Story
+                </motion.button>
+              </a>
+            </motion.div>
           </div>
+
+          {/* Animated scroll indicator */}
+          <motion.div
+            className="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+              y: [0, 10, 0],
+            }}
+            transition={{
+              opacity: { delay: 2.5, duration: 1 },
+              y: { repeat: Infinity, duration: 2, delay: 2.5 },
+            }}
+          >
+            <p className="text-sm mb-2" style={{ color: brandColors.dark }}>
+              Scroll to explore
+            </p>
+            <motion.div
+              animate={{
+                y: [0, 8, 0],
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 1.5,
+                repeatType: "reverse",
+              }}
+              className="w-6 h-9 rounded-full border-2 flex justify-center pt-1"
+              style={{ borderColor: brandColors.primary }}
+            >
+              <motion.div
+                animate={{
+                  opacity: [0.2, 1, 0.2],
+                  y: [0, 5, 0],
+                }}
+                transition={{
+                  repeat: Infinity,
+                  duration: 1.5,
+                }}
+                className="w-1 h-2 rounded-full"
+                style={{ backgroundColor: brandColors.primary }}
+              />
+            </motion.div>
+          </motion.div>
         </motion.div>
-      </motion.div>
-    </div>
+      </div>
     </ScrollSection>
   );
 };
