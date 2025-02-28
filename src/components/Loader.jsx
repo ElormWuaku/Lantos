@@ -17,28 +17,28 @@ const Loader = ({ onComplete }) => {
     lightGray: "#F5F5F5"
   };
 
-  // Progress simulation
+  // Progress simulation - MODIFIED for faster loading
   useEffect(() => {
     let interval;
 
-    // Start the loading progress
+    // Start the loading progress with increased increment speed
     interval = setInterval(() => {
       setLoadingProgress(prev => {
-        const newProgress = prev + (Math.random() * 2.5);
+        const newProgress = prev + (Math.random() * 5); // Increased from 2.5 to 5
         return newProgress >= 100 ? 100 : newProgress;
       });
-    }, 80);
+    }, 50); // Reduced from 80ms to 50ms
 
     return () => {
       clearInterval(interval);
     };
   }, []);
 
-  // Control the animation sequence
+  // Control the animation sequence - MODIFIED text sequence triggers
   useEffect(() => {
-    if (loadingProgress >= 20 && textSequence === 0) {
+    if (loadingProgress >= 15 && textSequence === 0) { // Reduced from 20 to 15
       setTextSequence(1);
-    } else if (loadingProgress >= 50 && textSequence === 1) {
+    } else if (loadingProgress >= 40 && textSequence === 1) { // Reduced from 50 to 40
       setTextSequence(2);
     }
 
@@ -46,7 +46,7 @@ const Loader = ({ onComplete }) => {
       const timer = setTimeout(() => {
         setIsComplete(true);
         if (onComplete) onComplete();
-      }, 1000);
+      }, 500); // Reduced from 1000ms to 500ms
       
       return () => clearTimeout(timer);
     }
@@ -59,8 +59,8 @@ const Loader = ({ onComplete }) => {
     x: Math.random() * 1000 - 500,
     y: Math.random() * 600 - 300,
     size: Math.random() * 8 + 2,
-    duration: Math.random() * 2 + 1,
-    delay: Math.random() * 2,
+    duration: Math.random() * 1.5 + 0.5, // Reduced from 2+1 to 1.5+0.5
+    delay: Math.random() * 1, // Reduced from 2 to 1
     color: i % 2 === 0 ? brandColors.green : brandColors.orange
   }));
 
@@ -80,7 +80,7 @@ const Loader = ({ onComplete }) => {
             opacity: textSequence >= 1 ? 1 : 0, 
             y: textSequence >= 1 ? 0 : 20 
           }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: "easeOut" }} // Reduced from 0.8 to 0.6
         >
           <motion.h1 
             className="text-6xl md:text-8xl font-bold"
@@ -90,7 +90,7 @@ const Loader = ({ onComplete }) => {
             }}
             initial={{ letterSpacing: "-0.05em" }}
             animate={{ letterSpacing: "0.05em" }}
-            transition={{ duration: 1.2, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.1 }} // Reduced from 1.2/0.2 to 0.8/0.1
           >
             Lanto&apos;s
           </motion.h1>
@@ -104,14 +104,14 @@ const Loader = ({ onComplete }) => {
             opacity: textSequence >= 2 ? 1 : 0, 
             y: textSequence >= 2 ? 0 : 20 
           }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: "easeOut" }} // Reduced from 0.8 to 0.6
         >
           <motion.h2 
             className="text-xl md:text-2xl tracking-widest text-center font-bold"
             style={{ color: brandColors.green }}
             initial={{ letterSpacing: "0.1em" }}
             animate={{ letterSpacing: "0.3em" }}
-            transition={{ duration: 1.2, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.1 }} // Reduced from 1.2/0.2 to 0.8/0.1
           >
             CREATIVE CONCEPT
           </motion.h2>
@@ -123,7 +123,7 @@ const Loader = ({ onComplete }) => {
         className="absolute bottom-20 w-64 h-2 bg-white rounded-full overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
+        transition={{ delay: 0.3 }} // Reduced from 0.5 to 0.3
       >
         <motion.div 
           className="h-full rounded-full"
@@ -132,7 +132,7 @@ const Loader = ({ onComplete }) => {
           }}
           initial={{ width: "0%" }}
           animate={{ width: `${loadingProgress}%` }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2 }} // Reduced from 0.3 to 0.2
         />
       </motion.div>
 
@@ -163,7 +163,7 @@ const Loader = ({ onComplete }) => {
               duration: particle.duration,
               delay: particle.delay,
               repeat: Infinity,
-              repeatDelay: Math.random() * 3 + 1
+              repeatDelay: Math.random() * 2 + 0.5 // Reduced from 3+1 to 2+0.5
             }}
           />
         ))}
@@ -176,13 +176,13 @@ const Loader = ({ onComplete }) => {
             className="absolute inset-0 flex items-center justify-center z-10 bg-white bg-opacity-90"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }} // Reduced from 0.8 to 0.6
           >
             <motion.div 
               className="text-center px-6 py-10 rounded-xl"
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.2 }} // Reduced from 0.8/0.3 to 0.6/0.2
             >
               <motion.button
                 className="px-8 py-3 rounded-full text-lg font-medium text-white shadow-lg"
@@ -193,7 +193,7 @@ const Loader = ({ onComplete }) => {
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
+                transition={{ delay: 0.5 }} // Reduced from 0.7 to 0.5
                 onClick={() => {
                   if (onComplete) onComplete();
                   // You can add navigation logic here

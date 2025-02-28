@@ -1,13 +1,13 @@
 import React, { useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import ScrollSection from "../../../components/ScrollSection";
-import { art, product, wood } from "../../../assets/images";
+import { art, hero2, table2 } from "../../../assets/images";
 
 const brandColors = {
   primary: "#4AA625", // Green as primary
   secondary: "#FC940E", // Orange accent
   dark: "#222222",
-  light: "#FFFFFF"
+  light: "#FFFFFF",
 };
 
 const About = () => {
@@ -31,9 +31,9 @@ const About = () => {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
-      }
-    }
+        ease: "easeOut",
+      },
+    },
   };
 
   const imageVariants = {
@@ -44,9 +44,9 @@ const About = () => {
       transition: {
         duration: 0.7,
         ease: "easeOut",
-        delay: 0.2
-      }
-    }
+        delay: 0.2,
+      },
+    },
   };
 
   const highlightVariants = {
@@ -101,33 +101,33 @@ const About = () => {
             >
               <div className="grid grid-cols-2 gap-4">
                 {/* Main Image */}
-                <motion.div 
+                <motion.div
                   className="col-span-2 rounded-lg overflow-hidden shadow-lg"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div 
+                  <div
                     className="w-full h-64 md:h-80 bg-gray-200"
                     style={{
-                      backgroundImage: `url(${product})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center'
+                      backgroundImage: `url(${hero2})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
                     }}
                   />
                 </motion.div>
-                
+
                 {/* Two smaller images */}
                 <motion.div
                   className="rounded-lg overflow-hidden shadow-md"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div 
+                  <div
                     className="w-full h-48 bg-gray-200"
                     style={{
-                      backgroundImage: `url(${wood})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center'
+                      backgroundImage: `url(${table2})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
                     }}
                   />
                 </motion.div>
@@ -136,17 +136,17 @@ const About = () => {
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div 
+                  <div
                     className="w-full h-48 bg-gray-200"
                     style={{
                       backgroundImage: `url(${art})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center'
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
                     }}
                   />
                 </motion.div>
               </div>
-              
+
               {/* Design element */}
               <motion.div
                 className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full z-10"
@@ -154,7 +154,7 @@ const About = () => {
                 animate={{
                   scale: [1, 1.1, 1],
                   rotate: [0, 5, 0],
-                  transition: { duration: 8, repeat: Infinity }
+                  transition: { duration: 8, repeat: Infinity },
                 }}
               />
             </motion.div>
@@ -167,7 +167,10 @@ const About = () => {
               viewport={{ once: false, amount: 0.3 }}
               className="w-full lg:w-1/2"
             >
-              <h2 className="text-xl font-medium mb-2" style={{ color: brandColors.primary }}>
+              <h2
+                className="text-xl font-medium mb-2"
+                style={{ color: brandColors.primary }}
+              >
                 Our Philosophy
               </h2>
 
@@ -191,58 +194,81 @@ const About = () => {
                 style={{ backgroundColor: brandColors.secondary }}
               />
 
-              <motion.div
-                variants={textVariants}
-                className="space-y-4"
-              >
+              <motion.div variants={textVariants} className="space-y-4">
                 <p className="text-base md:text-lg">
-                  At <span style={{ color: brandColors.primary, fontWeight: 600 }}>EcoSmart</span>, 
-                  we&apos;re redefining furniture by blending cutting-edge technology with sustainable craftsmanship. 
-                  Our Smart Tables represent the harmony between innovation and environmental responsibility.
+                  At{" "}
+                  <span style={{ color: brandColors.primary, fontWeight: 600 }}>
+                    EcoSmart
+                  </span>
+                  , we&apos;re redefining furniture by blending cutting-edge
+                  technology with sustainable craftsmanship. Our Smart Tables
+                  represent the harmony between innovation and environmental
+                  responsibility.
                 </p>
-                
+
                 <p className="text-base md:text-lg">
-                  Each piece is thoughtfully designed with integrated technology that enhances your daily life, 
-                  while maintaining our commitment to sustainability through responsibly sourced materials.
+                  Each piece is thoughtfully designed with integrated technology
+                  that enhances your daily life, while maintaining our
+                  commitment to sustainability through responsibly sourced
+                  materials.
                 </p>
-                
-                <div className="pt-2">
-                  <h4 className="text-lg font-semibold mb-2" style={{ color: brandColors.dark }}>
-                    From Scraps to Art
-                  </h4>
-                  
-                  <p className="text-base md:text-lg">
-                    What sets us apart is our dedication to reducing waste through creative reuse. 
-                    The manufacturing process of our Smart Tables generates wood and metal scraps that we 
-                    transform into unique art pieces and functional accessories.
-                  </p>
-                  
-                  <p className="text-base md:text-lg mt-3">
-                    These one-of-a-kind creations not only complement our furniture line but also 
-                    embody our zero-waste philosophy, giving new life to materials that would 
-                    otherwise be discarded.
-                  </p>
-                </div>
-                
+
+                <p className="text-base md:text-lg mt-3">
+                  These one-of-a-kind creations not only complement our
+                  furniture line but also embody our zero-waste philosophy,
+                  giving new life to materials that would otherwise be
+                  discarded.
+                </p>
+
                 <div className="flex items-center pt-4">
                   <div className="flex space-x-2 mr-6">
-                    <span className="font-bold text-4xl" style={{ color: brandColors.primary }}>93%</span>
-                    <span className="text-sm flex flex-col justify-center" style={{ color: brandColors.dark }}>
-                      Recycled<br />Materials
+                    <span
+                      className="font-bold text-4xl"
+                      style={{ color: brandColors.primary }}
+                    >
+                      93%
+                    </span>
+                    <span
+                      className="text-sm flex flex-col justify-center"
+                      style={{ color: brandColors.dark }}
+                    >
+                      Recycled
+                      <br />
+                      Materials
                     </span>
                   </div>
-                  
+
                   <div className="flex space-x-2 mr-6">
-                    <span className="font-bold text-4xl" style={{ color: brandColors.primary }}>100%</span>
-                    <span className="text-sm flex flex-col justify-center" style={{ color: brandColors.dark }}>
-                      Renewable<br />Energy
+                    <span
+                      className="font-bold text-4xl"
+                      style={{ color: brandColors.primary }}
+                    >
+                      100%
+                    </span>
+                    <span
+                      className="text-sm flex flex-col justify-center"
+                      style={{ color: brandColors.dark }}
+                    >
+                      Renewable
+                      <br />
+                      Energy
                     </span>
                   </div>
-                  
+
                   <div className="flex space-x-2">
-                    <span className="font-bold text-4xl" style={{ color: brandColors.secondary }}>12+</span>
-                    <span className="text-sm flex flex-col justify-center" style={{ color: brandColors.dark }}>
-                      Years of<br />Innovation
+                    <span
+                      className="font-bold text-4xl"
+                      style={{ color: brandColors.secondary }}
+                    >
+                      12+
+                    </span>
+                    <span
+                      className="text-sm flex flex-col justify-center"
+                      style={{ color: brandColors.dark }}
+                    >
+                      Years of
+                      <br />
+                      Innovation
                     </span>
                   </div>
                 </div>
