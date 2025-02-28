@@ -1,5 +1,4 @@
-import { useRef, useState, useEffect } from "react";
-import { motion, useAnimation, useInView } from "framer-motion";
+import { useState, useEffect } from "react";
 import ScrollSection from "../../../components/ScrollSection";
 
 const brandColors = {
@@ -10,64 +9,30 @@ const brandColors = {
 };
 
 const Features = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.2 });
-  const controls = useAnimation();
   const [sliderIndex, setSliderIndex] = useState(0);
+  const [itemsPerView, setItemsPerView] = useState(3);
 
-  // Start animations when component comes into view
+  // Set the number of items per view based on screen size
   useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
-    } else {
-      controls.start("hidden");
-    }
-  }, [isInView, controls]);
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setItemsPerView(1);
+      } else if (window.innerWidth < 1024) {
+        setItemsPerView(2);
+      } else {
+        setItemsPerView(3);
+      }
+    };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+    // Set initial value
+    handleResize();
 
-  const tileVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
-      },
-    },
-  };
-
-  // Floating animation for decorative elements
-  const floatingAnimation = {
-    y: [0, -10, 0],
-    transition: {
-      duration: 5,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  };
-
-  const highlightVariants = {
-    hidden: { width: "0%" },
-    visible: {
-      width: "100%",
-      transition: {
-        delay: 0.3,
-        duration: 0.8,
-        ease: "easeInOut",
-      },
-    },
-  };
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const featuresData = [
     {
@@ -270,67 +235,39 @@ const Features = () => {
     },
   ];
 
-  // Create a continuous loop by duplicating the items
-  const continuousData = [...featuresData, ...featuresData];
-
-  // Calculate how many items to show in slider based on visible cards
-  const visibleItems = 3;
+  // Calculate total number of slides
   const totalItems = featuresData.length;
+  const maxIndex = Math.max(0, Math.ceil(totalItems / itemsPerView) - 1);
 
   const handleNext = () => {
-    setSliderIndex((prev) => (prev + 1) % totalItems);
+    setSliderIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
   const handlePrev = () => {
-    setSliderIndex((prev) => (prev - 1 + totalItems) % totalItems);
+    setSliderIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
 
-  // Auto slide every 5 seconds with continuous loop
+  // Auto slide every 5 seconds
   useEffect(() => {
     const timer = setInterval(() => {
-      setSliderIndex((prev) => (prev + 1) % totalItems);
+      setSliderIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
     }, 5000);
 
     return () => clearInterval(timer);
-  }, [totalItems]);
+  }, [maxIndex]);
+
+  // Get visible items based on current index
+  const getVisibleItems = () => {
+    const startIdx = sliderIndex * itemsPerView;
+    const endIdx = Math.min(startIdx + itemsPerView, totalItems);
+    return featuresData.slice(startIdx, endIdx);
+  };
 
   return (
     <ScrollSection id="features">
       <div className="py-16 px-4 bg-gray-50 relative overflow-hidden">
-        {/* Animated decorative elements */}
-        <motion.div
-          animate={floatingAnimation}
-          className="absolute top-1/4 right-1/4 w-5 h-5 rounded-full"
-          style={{ backgroundColor: brandColors.primary, opacity: 0.2 }}
-        />
-        <motion.div
-          animate={{
-            ...floatingAnimation,
-            transition: { ...floatingAnimation.transition, delay: 1 },
-          }}
-          className="absolute bottom-1/3 left-1/5 w-4 h-4 rounded-full"
-          style={{ backgroundColor: brandColors.secondary, opacity: 0.15 }}
-        />
-
-        {/* {visibleItems.map((feature) => (
-          <motion.div
-            key={feature.id} // Unique key to prevent unmounting
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Features feature={feature} />
-          </motion.div>
-        ))} */}
-
         <div className="container mx-auto relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-lg mx-auto text-center mb-12"
-          >
+          <div className="max-w-lg mx-auto text-center mb-12">
             <h2
               className="text-xl font-medium mb-2"
               style={{ color: brandColors.primary }}
@@ -338,47 +275,34 @@ const Features = () => {
               Innovative Technology
             </h2>
 
-            <div className="overflow-hidden mb-2">
-              <motion.h3
-                className="text-3xl md:text-4xl font-bold"
-                initial={{ y: 40 }}
-                whileInView={{ y: 0 }}
-                transition={{ duration: 0.5 }}
-                style={{ color: brandColors.dark }}
-              >
-                Smart Table Features
-              </motion.h3>
-            </div>
+            <h3
+              className="text-3xl md:text-4xl font-bold mb-2"
+              style={{ color: brandColors.dark }}
+            >
+              Smart Table Features
+            </h3>
 
-            <motion.div
-              variants={highlightVariants}
-              initial="hidden"
-              whileInView="visible"
+            <div
               className="h-1 w-16 mx-auto mb-6 rounded-full"
               style={{ backgroundColor: brandColors.secondary }}
             />
 
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+            <p
               className="text-base md:text-lg"
               style={{ color: brandColors.dark }}
             >
               Our multi-purpose Smart Table seamlessly integrates cutting-edge
               technology with sustainable design, transforming your space with
               intelligent furniture that enhances modern living.
-            </motion.p>
-          </motion.div>
+            </p>
+          </div>
 
           {/* Features slider container */}
           <div className="relative max-w-6xl mx-auto px-4">
             {/* Previous button */}
-            <motion.button
+            <button
               onClick={handlePrev}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center"
+              className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
               style={{
                 backgroundColor: brandColors.light,
                 color: brandColors.dark,
@@ -400,72 +324,50 @@ const Features = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-            </motion.button>
+            </button>
 
-            {/* Features slider */}
-            <div className="overflow-hidden">
-              <motion.div
-                ref={ref}
-                variants={containerVariants}
-                initial="hidden"
-                animate={controls}
-                className="flex"
-                style={{
-                  transform: `translateX(-${sliderIndex * 33.33}%)`,
-                  transition: "transform 0.5s ease-in-out",
-                }}
-              >
-                {continuousData.map((item, index) => (
-                  <motion.div
-                    key={`${item.id}-${index}`}
-                    variants={tileVariants}
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: `0 10px 25px -5px ${item.color}30`,
-                    }}
-                    className="flex-none mx-4 rounded-xl p-6 flex flex-col items-center bg-white"
+            {/* Features grid - without complex sliding, just swap visible items */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {getVisibleItems().map((item) => (
+                <div
+                  key={item.id}
+                  className="rounded-xl p-6 flex flex-col items-center bg-white hover:scale-105 transition-transform"
+                  style={{
+                    borderTop: `3px solid ${item.color}`,
+                    boxShadow: `0 4px 20px -8px ${brandColors.dark}20`,
+                  }}
+                >
+                  <div
+                    className="mb-4 p-3 rounded-full"
                     style={{
-                      width: "calc(33.33% - 32px)",
-                      borderTop: `3px solid ${item.color}`,
-                      boxShadow: `0 4px 20px -8px ${brandColors.dark}20`,
+                      color: item.color,
+                      backgroundColor: `${item.color}10`,
                     }}
                   >
-                    <motion.div
-                      className="mb-4 p-3 rounded-full"
-                      style={{
-                        color: item.color,
-                        backgroundColor: `${item.color}10`,
-                      }}
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.8 }}
-                    >
-                      {item.icon}
-                    </motion.div>
+                    {item.icon}
+                  </div>
 
-                    <h4
-                      className="text-lg font-semibold mb-2"
-                      style={{ color: brandColors.dark }}
-                    >
-                      {item.title}
-                    </h4>
+                  <h4
+                    className="text-lg font-semibold mb-2"
+                    style={{ color: brandColors.dark }}
+                  >
+                    {item.title}
+                  </h4>
 
-                    <p
-                      className="text-center text-sm"
-                      style={{ color: `${brandColors.dark}90` }}
-                    >
-                      {item.description}
-                    </p>
-                  </motion.div>
-                ))}
-              </motion.div>
+                  <p
+                    className="text-center text-sm"
+                    style={{ color: `${brandColors.dark}90` }}
+                  >
+                    {item.description}
+                  </p>
+                </div>
+              ))}
             </div>
 
             {/* Next button */}
-            <motion.button
+            <button
               onClick={handleNext}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center"
+              className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 rounded-full flex items-center justify-center hover:scale-110 active:scale-95 transition-transform"
               style={{
                 backgroundColor: brandColors.light,
                 color: brandColors.dark,
@@ -487,22 +389,20 @@ const Features = () => {
                   strokeLinejoin="round"
                 />
               </svg>
-            </motion.button>
+            </button>
 
             {/* Slider indicators */}
             <div className="flex justify-center mt-6">
-              {Array.from({ length: featuresData.length }).map((_, index) => (
-                <motion.button
+              {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+                <button
                   key={index}
                   onClick={() => setSliderIndex(index)}
-                  className="mx-1 w-2 h-2 rounded-full"
-                  whileHover={{ scale: 1.5 }}
+                  className="mx-1 w-2 h-2 rounded-full hover:scale-150 transition-transform"
                   style={{
                     backgroundColor:
                       index === sliderIndex
                         ? brandColors.primary
                         : `${brandColors.dark}20`,
-                    transition: "background-color 0.3s ease",
                   }}
                 />
               ))}
