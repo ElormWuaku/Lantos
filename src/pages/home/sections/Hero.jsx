@@ -128,7 +128,7 @@ const Hero = () => {
               variants={childVariants}
               className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start mb-8 lg:mb-0"
             >
-              <a href="#creations" onClick={() => handleScrollTo("creations")}>
+              <a href="#art-gallery" onClick={() => handleScrollTo("art-gallery")}>
                 <motion.button
                   whileHover={{
                     scale: 1.05,

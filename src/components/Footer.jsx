@@ -8,10 +8,10 @@ import {
   MapPin,
   ArrowRight,
 } from "lucide-react";
-import { Link } from "react-router-dom"; // Assuming you're using React Router
+import { Link } from "react-router-dom";
 
 const Footer = () => {
-  // Using the same brand colors from Hero component
+  // Brand colors
   const brandColors = {
     primary: "#4AA625", // Green as primary
     secondary: "#FC940E", // Orange accent
@@ -55,13 +55,13 @@ const Footer = () => {
     },
   };
 
-  // Quick links
+  // Quick links - fixed to use href correctly with appropriate path values
   const quickLinks = [
-    { title: "Home", href: "#", id: "" },
-    { title: "About", href: "#about", id: "about" },
-    { title: "Gallery", href: "#gallery", id: "gallery" },
-    { title: "Shop", href: "#shop", id: "shop" },
-    { title: "Contact", href: "#contact", id: "contact" },
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Gallery", path: "/gallery" },
+    { name: "Shop", path: "/shop" },
+    { name: "Contact", path: "/contact" },
   ];
 
   // Social media links
@@ -97,13 +97,13 @@ const Footer = () => {
       ></div>
 
       <motion.div
-        className="max-w-7xl mx-auto px-4 py-12"
+        className="max-w-7xl mx-auto px-4 sm:px-6 py-12"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={containerVariants}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Column 1: Company Info */}
           <motion.div
             variants={itemVariants}
@@ -147,7 +147,7 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Column 2: Quick Links */}
+          {/* Column 2: Quick Links - Fixed implementation */}
           <motion.div
             variants={itemVariants}
             className="flex flex-col space-y-4"
@@ -161,16 +161,17 @@ const Footer = () => {
             <ul className="flex flex-col space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <Link to={link.path} className="flex items-center group">
+                  <Link 
+                    to={link.path} 
+                    className="flex items-center group text-sm hover:text-opacity-80 transition-all duration-300"
+                    style={{ color: brandColors.dark }}
+                  >
                     <ArrowRight
                       size={16}
-                      className="mr-2 transition-all duration-300 transform group-hover:translate-x-1"
+                      className="mr-2 transition-transform duration-300 transform group-hover:translate-x-1"
                       style={{ color: brandColors.primary }}
                     />
-                    <span
-                      className="text-sm transition-all duration-300 group-hover:translate-x-1"
-                      style={{ color: brandColors.dark }}
-                    >
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">
                       {link.name}
                     </span>
                   </Link>
@@ -202,33 +203,36 @@ const Footer = () => {
                 </span>
               </li>
               <li className="flex items-center">
-                <Phone
-                  size={20}
-                  className="mr-2 flex-shrink-0"
-                  style={{ color: brandColors.primary }}
-                />
-                <span className="text-sm" style={{ color: brandColors.dark }}>
-                  +233 500 353 555
-                </span>
+                <a href="tel:+233500353555" className="flex items-center hover:underline">
+                  <Phone
+                    size={20}
+                    className="mr-2 flex-shrink-0"
+                    style={{ color: brandColors.primary }}
+                  />
+                  <span className="text-sm" style={{ color: brandColors.dark }}>
+                    +233 500 353 555
+                  </span>
+                </a>
               </li>
               <li className="flex items-center">
-                <Mail
-                  size={20}
-                  className="mr-2 flex-shrink-0"
-                  style={{ color: brandColors.primary }}
-                />
-                <a
-                  href="mailto:info@lantoscreative.com"
-                  className="text-sm hover:underline"
-                  style={{ color: brandColors.dark }}
+                <a 
+                  href="mailto:info@lantoscreative.com" 
+                  className="flex items-center hover:underline"
                 >
-                  info@lantoscreative.com
+                  <Mail
+                    size={20}
+                    className="mr-2 flex-shrink-0"
+                    style={{ color: brandColors.primary }}
+                  />
+                  <span className="text-sm" style={{ color: brandColors.dark }}>
+                    info@lantoscreative.com
+                  </span>
                 </a>
               </li>
             </ul>
           </motion.div>
 
-          {/* Column 4: Newsletter */}
+          {/* Column 4: Newsletter - Added validation and improved UX */}
           <motion.div
             variants={itemVariants}
             className="flex flex-col space-y-4"
@@ -246,7 +250,7 @@ const Footer = () => {
               Subscribe to our newsletter for the latest updates on our products
               and innovations.
             </p>
-            <form className="flex flex-col space-y-3">
+            <form className="flex flex-col space-y-3" onSubmit={(e) => e.preventDefault()}>
               <div className="relative">
                 <Mail
                   size={18}
@@ -261,13 +265,15 @@ const Footer = () => {
                     borderColor: `${brandColors.primary}50`,
                     "--tw-ring-color": brandColors.primary,
                   }}
+                  required
+                  aria-label="Email address"
                 />
               </div>
               <motion.button
                 type="submit"
-                className="w-full py-2 rounded-md text-white text-sm font-medium"
+                className="w-full py-2 rounded-md text-white text-sm font-medium transition-colors duration-300"
                 style={{ backgroundColor: brandColors.primary }}
-                whileHover={{ backgroundColor: brandColors.dark }}
+                whileHover={{ backgroundColor: brandColors.secondary }}
                 whileTap={{ scale: 0.97 }}
               >
                 Subscribe
@@ -276,36 +282,36 @@ const Footer = () => {
           </motion.div>
         </div>
 
-        {/* Copyright Section */}
+        {/* Copyright Section - Improved responsive layout */}
         <motion.div
           variants={itemVariants}
-          className="border-t mt-12 pt-6 flex flex-col md:flex-row justify-between items-center"
+          className="border-t mt-12 pt-6 flex flex-col sm:flex-row justify-between items-center"
           style={{ borderColor: `${brandColors.dark}20` }}
         >
           <p
-            className="text-sm text-center md:text-left"
+            className="text-sm text-center sm:text-left mb-4 sm:mb-0"
             style={{ color: brandColors.dark }}
           >
             © {currentYear} Lanto&apos;s Creative Concept. All rights reserved.
           </p>
-          <div className="flex space-x-4 mt-4 md:mt-0">
+          <div className="flex flex-wrap justify-center sm:justify-end gap-4 sm:gap-6">
             <a
               href="/privacy-policy"
-              className="text-xs hover:underline"
+              className="text-xs hover:underline transition-colors duration-300"
               style={{ color: brandColors.dark }}
             >
               Privacy Policy
             </a>
             <a
               href="/terms"
-              className="text-xs hover:underline"
+              className="text-xs hover:underline transition-colors duration-300"
               style={{ color: brandColors.dark }}
             >
               Terms of Service
             </a>
             <a
               href="/faq"
-              className="text-xs hover:underline"
+              className="text-xs hover:underline transition-colors duration-300"
               style={{ color: brandColors.dark }}
             >
               FAQ

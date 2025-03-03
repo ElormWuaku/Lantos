@@ -448,7 +448,7 @@ const Features = () => {
           
           {/* Call to action */}
           <div className="mt-20 text-center">
-            <a href="#gallery">
+            <a href="#art-gallery">
               <button
                 className="px-8 py-3 rounded-md text-lg font-medium transition-all duration-300 shadow-lg"
                 style={{

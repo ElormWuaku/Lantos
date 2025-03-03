@@ -42,7 +42,9 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // Initial check
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [isScrolled]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -91,10 +93,12 @@ const Navbar = () => {
     },
   };
 
+  // Menu items with Home and About in center
   const centerMenuItems = [
-    { title: "Home", href: "#", id: "" },
+    { title: "Home", href: "#home", id: "home" },
     { title: "About", href: "#about", id: "about" },
-    { title: "Gallery", href: "#gallery", id: "gallery" },
+    { title: "Art Gallery", href: "#art-gallery", id: "art-gallery" },
+    { title: "Smart Table", href: "#smart-table", id: "smart-table" },
   ];
 
   const rightMenuItems = [
@@ -102,6 +106,7 @@ const Navbar = () => {
     { title: "Contact", href: "#contact", id: "contact" },
   ];
 
+  // Combine all menu items for mobile menu
   const allMenuItems = [...centerMenuItems, ...rightMenuItems];
 
   // Check if item is active
@@ -128,11 +133,10 @@ const Navbar = () => {
             />
           </motion.div>
 
-          {/* Desktop Menu - Three Section Layout */}
+          {/* Desktop Menu - Evenly Distributed Layout */}
           <div className="hidden md:flex md:flex-1 md:justify-between items-center">
-            {/* Center: Navigation Links */}
-            <div className="flex-1"></div> {/* Spacer */}
-            <div className="flex justify-center space-x-8">
+            {/* Center Navigation Links */}
+            <div className="flex justify-center space-x-8 mx-auto">
               {centerMenuItems.map((item) => (
                 <motion.a
                   key={item.title}
@@ -155,8 +159,9 @@ const Navbar = () => {
                 </motion.a>
               ))}
             </div>
+            
             {/* Right: Shop, Contact, Theme Toggle */}
-            <div className="flex items-center justify-end flex-1 space-x-4">
+            <div className="flex items-center justify-end space-x-4">
               {rightMenuItems.map((item) => (
                 <motion.a
                   key={item.title}
@@ -248,6 +253,7 @@ const Navbar = () => {
               )}
 
               <div className="flex-grow flex flex-col items-center justify-center">
+                {/* All menu items in mobile view */}
                 {allMenuItems.map((item, i) => (
                   <motion.a
                     key={item.title}
