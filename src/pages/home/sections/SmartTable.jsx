@@ -1,6 +1,6 @@
 
 import ScrollSection from "../../../components/ScrollSection";
-import { product} from "../../../assets/images";
+import { product, product2, product3} from "../../../assets/images";
 
 const brandColors = {
   primary: "#4AA625", // Green as primary
@@ -24,7 +24,7 @@ const SmartTable = () => {
     {
       id: 2,
       name: "Studio Smart Table",
-      image: product,
+      image: product2,
       description: "Versatile smart table with adjustable height, integrated power management and minimal design for creatives.",
       price: 899.99,
       slug: "studio-smart-table"
@@ -32,7 +32,7 @@ const SmartTable = () => {
     {
       id: 3,
       name: "Conference Smart Table",
-      image: product,
+      image: product3,
       description: "Connected conference table with seamless video conferencing integration and collaborative features.",
       price: 1599.99,
       slug: "conference-smart-table"

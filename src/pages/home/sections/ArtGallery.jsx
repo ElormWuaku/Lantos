@@ -1,6 +1,6 @@
 
 import ScrollSection from "../../../components/ScrollSection";
-import {contactbg, hero4, table, table2 } from "../../../assets/images";
+import {art10, art11, art12, art9} from "../../../assets/images";
 
 const brandColors = {
   primary: "#4AA625", // Green as primary
@@ -16,7 +16,7 @@ const ArtGallery = () => {
     {
       id: 1,
       name: "Abstract Harmony",
-      image: contactbg,
+      image: art9,
       description: "A vibrant abstract piece that brings energy to any space with its dynamic color palette.",
       price: 249.99,
       slug: "abstract-harmony"
@@ -24,7 +24,7 @@ const ArtGallery = () => {
     {
       id: 2,
       name: "Serene Landscape",
-      image: hero4,
+      image: art10,
       description: "Peaceful landscape painting that captures the tranquility of nature in soft, calming tones.",
       price: 299.99,
       slug: "serene-landscape"
@@ -32,7 +32,7 @@ const ArtGallery = () => {
     {
       id: 3,
       name: "Urban Perspective",
-      image: table2,
+      image: art11,
       description: "Modern cityscape that portrays urban life through a unique geometric perspective.",
       price: 189.99,
       slug: "urban-perspective"
@@ -40,7 +40,7 @@ const ArtGallery = () => {
     {
       id: 4,
       name: "Coastal Dreams",
-      image: table,
+      image: art12,
       description: "Breathtaking coastal scene that brings the refreshing essence of the ocean into your home.",
       price: 279.99,
       slug: "coastal-dreams"
