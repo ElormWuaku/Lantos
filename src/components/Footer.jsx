@@ -8,7 +8,6 @@ import {
   MapPin,
   ArrowRight,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
   // Brand colors
@@ -57,11 +56,12 @@ const Footer = () => {
 
   // Quick links - fixed to use href correctly with appropriate path values
   const quickLinks = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Gallery", path: "/gallery" },
-    { name: "Shop", path: "/shop" },
-    { name: "Contact", path: "/contact" },
+    { title: "Home", href: "#home", id: "home" },
+    { title: "About", href: "#about", id: "about" },
+    { title: "Art Gallery", href: "#art-gallery", id: "art-gallery" },
+    { title: "Smart Table", href: "#smart-table", id: "smart-table" },
+    { title: "Shop", href: "#shop", id: "shop" },
+    { title: "Contact", href: "#contact", id: "contact" },
   ];
 
   // Social media links
@@ -75,7 +75,7 @@ const Footer = () => {
     {
       name: "Instagram",
       icon: <Instagram size={20} />,
-      url: "https://instagram.com/lantoscreativeconcept",
+      url: "https://www.instagram.com/lantos_creative_concept?igsh=MTg2a29nbHQ5OXlnMA%3D%3D&utm_source=qr",
       color: "#E4405F",
     },
     {
@@ -161,8 +161,14 @@ const Footer = () => {
             <ul className="flex flex-col space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <Link 
-                    to={link.path} 
+                  <a
+                    href={link.href}
+                    onClick={(e) => {
+                      e.preventDefault(); // Prevent default anchor behavior
+                      document.querySelector(link.href).scrollIntoView({
+                        behavior: "smooth",
+                      });
+                    }}
                     className="flex items-center group text-sm hover:text-opacity-80 transition-all duration-300"
                     style={{ color: brandColors.dark }}
                   >
@@ -172,9 +178,9 @@ const Footer = () => {
                       style={{ color: brandColors.primary }}
                     />
                     <span className="transition-transform duration-300 group-hover:translate-x-1">
-                      {link.name}
+                      {link.title}
                     </span>
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -203,20 +209,23 @@ const Footer = () => {
                 </span>
               </li>
               <li className="flex items-center">
-                <a href="tel:+233500353555" className="flex items-center hover:underline">
+                <a
+                  href="tel:+233500353555"
+                  className="flex items-center hover:underline"
+                >
                   <Phone
                     size={20}
                     className="mr-2 flex-shrink-0"
                     style={{ color: brandColors.primary }}
                   />
                   <span className="text-sm" style={{ color: brandColors.dark }}>
-                    +233 500 353 555
+                  +233 203 390 633
                   </span>
                 </a>
               </li>
               <li className="flex items-center">
-                <a 
-                  href="mailto:info@lantoscreative.com" 
+                <a
+                  href="mailto:info@lantoscreative.com"
                   className="flex items-center hover:underline"
                 >
                   <Mail
@@ -225,7 +234,7 @@ const Footer = () => {
                     style={{ color: brandColors.primary }}
                   />
                   <span className="text-sm" style={{ color: brandColors.dark }}>
-                    info@lantoscreative.com
+                    lantoscreativeconcept@gmail.com
                   </span>
                 </a>
               </li>
@@ -250,7 +259,10 @@ const Footer = () => {
               Subscribe to our newsletter for the latest updates on our products
               and innovations.
             </p>
-            <form className="flex flex-col space-y-3" onSubmit={(e) => e.preventDefault()}>
+            <form
+              className="flex flex-col space-y-3"
+              onSubmit={(e) => e.preventDefault()}
+            >
               <div className="relative">
                 <Mail
                   size={18}

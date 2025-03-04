@@ -122,9 +122,10 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Left: Logo - Increased z-index to appear above mobile menu */}
+        <a href="#home">
           <motion.div 
             whileHover={{ scale: 1.05 }} 
-            className="flex-shrink-0 relative z-[60]"
+            className="flex-shrink-0 relative z-[60] cursor-pointer"
           >
             <img
               src={logo2}
@@ -132,6 +133,7 @@ const Navbar = () => {
               className="h-16 w-auto object-contain max-w-[150px]"
             />
           </motion.div>
+          </a>
 
           {/* Desktop Menu - Evenly Distributed Layout */}
           <div className="hidden md:flex md:flex-1 md:justify-between items-center">

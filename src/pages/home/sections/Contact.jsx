@@ -14,7 +14,7 @@ const Contact = () => {
   const [statusMessage, setStatusMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const contactNumber = "+233500353555";
+  const contactNumber = "+233203390633";
 
   // Updated color palette to match Hero component
   const brandColors = {
@@ -33,10 +33,10 @@ const Contact = () => {
 
     try {
       const result = await emailjs.send(
-        'service_vjh0nsr', // service ID
-        'template_qxbztws', // template ID
+        'service_n4uqmrx', // service ID
+        'template_2lt8sfy', // template ID
         formData,
-        'TKi5tH-L-cktAPqfX' // public key
+        'UMyYLzPCAfK2-RheN' // public key
       );
 
       console.log('Email successfully sent:', result);
@@ -127,7 +127,7 @@ const Contact = () => {
                     href="mailto:info@lantoscreative.com" 
                     className="text-gray-600 hover:underline transition-colors duration-300"
                   >
-                    info@lantoscreative.com
+                    lantoscreativeconcept@gmail.com
                   </a>
                 </div>
               </div>

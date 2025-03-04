@@ -1,6 +1,6 @@
 
 import ScrollSection from "../../../components/ScrollSection";
-import {art10, art11, art12, art9} from "../../../assets/images";
+import {art10, art11, art12, herobg} from "../../../assets/images";
 
 const brandColors = {
   primary: "#4AA625", // Green as primary
@@ -16,7 +16,7 @@ const ArtGallery = () => {
     {
       id: 1,
       name: "Abstract Harmony",
-      image: art9,
+      image: herobg,
       description: "A vibrant abstract piece that brings energy to any space with its dynamic color palette.",
       price: 249.99,
       slug: "abstract-harmony"
