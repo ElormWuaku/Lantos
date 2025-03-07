@@ -396,7 +396,7 @@ const About = () => {
                 
                 {/* Call to action button */}
                 <div className="mt-8">
-                  <a href="#contact">
+                  <a href="#innovator">
                     <button
                       className="px-6 py-3 rounded-md text-base font-medium transition-all duration-300 shadow-md"
                       style={{
@@ -412,7 +412,7 @@ const About = () => {
                         e.currentTarget.style.boxShadow = "";
                       }}
                     >
-                      Get In Touch
+                      Learn More
                     </button>
                   </a>
                 </div>

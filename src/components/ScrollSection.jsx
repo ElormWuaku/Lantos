@@ -2,9 +2,12 @@ import { useEffect, useRef } from 'react';
 import { motion, useAnimation, useInView } from 'framer-motion';
 import PropTypes from 'prop-types';
 
-const ScrollSection = ({ children, delay = 0 }) => {
+const ScrollSection = ({ children, delay = 0, threshold = 0.3 }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isInView = useInView(ref, { 
+    once: true, 
+    amount: threshold 
+  });
   const controls = useAnimation();
 
   useEffect(() => {
@@ -15,18 +18,20 @@ const ScrollSection = ({ children, delay = 0 }) => {
 
   const sectionVariants = {
     hidden: { 
-      y: 50, 
+      y: 100,  // Increased vertical translation for more noticeable effect 
       opacity: 0,
+      scale: 0.95  // Optional: add slight scale for more dynamic animation
     },
     visible: {
       y: 0,
       opacity: 1,
+      scale: 1,
       transition: {
         type: 'spring',
-        damping: 25,
-        stiffness: 120,
+        damping: 20,   // Slightly reduced damping for more bounce
+        stiffness: 100, // Adjusted stiffness for smoother animation
         delay: delay,
-        duration: 0.3
+        duration: 0.5  // Slightly longer duration
       }
     }
   };
@@ -37,6 +42,10 @@ const ScrollSection = ({ children, delay = 0 }) => {
       initial="hidden"
       animate={controls}
       variants={sectionVariants}
+      style={{ 
+        willChange: 'transform, opacity', 
+        transformStyle: 'preserve-3d' 
+      }}
     >
       {children}
     </motion.div>
@@ -45,11 +54,13 @@ const ScrollSection = ({ children, delay = 0 }) => {
 
 ScrollSection.propTypes = {
   children: PropTypes.node.isRequired,
-  delay: PropTypes.number
+  delay: PropTypes.number,
+  threshold: PropTypes.number
 };
 
 ScrollSection.defaultProps = {
-  delay: 0
+  delay: 0,
+  threshold: 0.3
 };
 
 export default ScrollSection;

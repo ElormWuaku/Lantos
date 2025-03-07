@@ -7,6 +7,7 @@ import About from './sections/About';
 import Contact from './sections/Contact';
 import ArtGallery from './sections/ArtGallery';
 import SmartTable from './sections/SmartTable';
+import Innovator from './sections/Innovator';
 
 const Home = () => {
   // Enable smooth scrolling
@@ -40,6 +41,12 @@ const Home = () => {
           <section id='about'>
             <ScrollSection delay={0.1}>
               <About />
+            </ScrollSection>
+          </section>
+
+          <section id='innovator'>
+            <ScrollSection delay={0.1}>
+              <Innovator/>
             </ScrollSection>
           </section>
 
