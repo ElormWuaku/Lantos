@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ScrollSection from "../../../components/ScrollSection";
-import { art8 } from "../../../assets/images";
+import { aboutbg} from "../../../assets/images";
 
 const brandColors = {
   primary: "#4AA625", // Green as primary
@@ -74,7 +74,7 @@ const About = () => {
                   <div
                     className="w-full h-80 md:h-96 bg-gray-200"
                     style={{
-                      backgroundImage: `url(${art8})`,
+                      backgroundImage: `url(${aboutbg})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                     }}

@@ -25,6 +25,7 @@ import art10 from './art10.jpg';
 import art11 from './art11.jpg';
 import art12 from './art12.jpg';
 import contactbg from './contactbg.jpg';
+import brand from './brand.jpg';
+import aboutbg from './aboutbg.jpg';
 
-
-export { hero,herobg, logo, hero2, table, table2, yellow, craftsman, about, logo2, hero4, wood, product, art, art1, art3, art4,art5, art6, contactbg, art8, art9, art10, art11, art12, product2, product3 };
+export { hero,herobg, logo, hero2, table, table2, yellow, craftsman, about, logo2, hero4, wood, product, art, art1, art3, art4,art5, art6, contactbg, art8, art9, art10, art11, art12, product2, product3, brand, aboutbg };

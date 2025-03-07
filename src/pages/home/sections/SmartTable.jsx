@@ -1,6 +1,6 @@
 
 import ScrollSection from "../../../components/ScrollSection";
-import { product, product2, product3} from "../../../assets/images";
+import {product2, product3} from "../../../assets/images";
 
 const brandColors = {
   primary: "#4AA625", // Green as primary
@@ -16,7 +16,7 @@ const SmartTable = () => {
     {
       id: 1,
       name: "Executive Smart Desk",
-      image: product,
+      image: product2,
       description: "Premium smart desk with built-in charging, ambient lighting, and touch controls for modern executives.",
       price: 1299.99,
       slug: "executive-smart-desk"

@@ -72,63 +72,86 @@ const Hero = () => {
 
   return (
     <ScrollSection>
-      {/* Hero section with improved gradient background */}
-      <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 pt-20">
-        {/* Optional subtle pattern overlay */}
-        <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiPjwvcmVjdD4KPC9zdmc+')]"></div>
+      {/* Modern Hero section with responsive design */}
+      <div className="relative min-h-[100svh] overflow-hidden pt-16 sm:pt-20">
+        {/* Base background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100 z-0"></div>
 
-        {/* Main content container with improved spacing and padding */}
-        <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between px-4 md:px-8 lg:px-12 py-12 lg:py-24">
-          {/* Text content with improved spacing */}
+        {/* Subtle dot pattern overlay with improved opacity for a more premium feel */}
+        <div className="absolute inset-0 opacity-8 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAiPjwvcmVjdD4KPC9zdmc+')]"></div>
+
+        {/* Enhanced brand color accent shapes - adjusted for better mobile display */}
+        <div className="absolute top-0 right-0 w-48 sm:w-64 md:w-80 lg:w-96 h-48 sm:h-64 md:h-80 lg:h-96 rounded-full bg-gradient-to-br from-green-100/40 to-green-200/40 blur-3xl z-0"></div>
+        <div className="absolute bottom-0 left-0 w-48 sm:w-64 md:w-80 lg:w-96 h-48 sm:h-64 md:h-80 lg:h-96 rounded-full bg-gradient-to-tr from-orange-100/40 to-orange-200/40 blur-3xl z-0"></div>
+
+        {/* Geometric accent shape - diagonal line - adjusted for responsiveness */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+          <div
+            className="absolute -top-10 -left-10 w-16 sm:w-24 md:w-32 h-[150%] rotate-45 opacity-10"
+            style={{ backgroundColor: brandColors.primary }}
+          ></div>
+        </div>
+
+        {/* Subtle grid pattern for extra texture */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMDAwMCIgb3BhY2l0eT0iMC4wMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-30 z-0"></div>
+
+        {/* Main content container with improved responsive layout */}
+        <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-6 sm:py-8 md:py-10 lg:py-16 xl:py-20 relative z-10">
+          {/* Text content with enhanced responsiveness */}
           <motion.div
             ref={ref}
             initial="hidden"
             animate={controls}
             variants={heroVariants}
-            className="w-full lg:w-1/2 flex flex-col justify-center text-center lg:text-left py-8 lg:py-0 z-30 mb-8 lg:mb-0"
+            className="w-full lg:w-1/2 flex flex-col justify-center text-center lg:text-left py-6 lg:py-0 z-30 mb-6 sm:mb-8 lg:mb-0 lg:pr-6 xl:pr-12"
           >
             <motion.h1
               variants={childVariants}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
-              style={{ color: brandColors.light }}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold mb-3 sm:mb-4 leading-tight"
+              style={{ color: brandColors.dark }}
             >
               Lanto&apos;s Creative Concept
             </motion.h1>
 
-            {/* Animated accent bar with improved color */}
+            {/* Improved animated accent bar - adjusted for mobile */}
             <motion.div
               variants={childVariants}
-              className="h-1 mb-6 rounded-full mx-auto lg:mx-0"
+              className="h-1 mb-4 sm:mb-5 md:mb-6 rounded-full mx-auto lg:mx-0"
               style={{
                 background: `linear-gradient(90deg, ${brandColors.primary}, ${brandColors.secondary})`,
-                width: "120px",
+                width: "80px",
               }}
-              whileHover={{ width: "150px", transition: { duration: 0.3 } }}
+              whileHover={{ width: "120px", transition: { duration: 0.3 } }}
             />
 
             <motion.h2
               variants={childVariants}
-              className="text-2xl md:text-3xl font-medium mb-6"
-              style={{ color: brandColors.light }}
+              className="text-lg sm:text-xl md:text-2xl font-medium mb-4 sm:mb-5 md:mb-6"
+              style={{ color: `${brandColors.dark}99` }}
             >
               Transforming Waste Into Art & Innovation
             </motion.h2>
 
             <motion.p
               variants={childVariants}
-              className="text-base md:text-lg mb-10 max-w-xl mx-auto lg:mx-0 text-gray-300"
+              className="text-sm sm:text-base md:text-lg mb-6 sm:mb-8 md:mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed"
+              style={{ color: `${brandColors.dark}99` }}
             >
-              From our signature Smart Table to unique art installations, we turn
-              industrial waste into functional masterpieces that combine
+              From our signature Smart Table to unique art installations, we
+              turn industrial waste into functional masterpieces that combine
               sustainability with cutting-edge technology.
             </motion.p>
 
-            {/* Improved button container with proper spacing */}
+            {/* Improved button container with better mobile layout */}
             <motion.div
               variants={childVariants}
-              className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start mb-8 lg:mb-0"
+              className="flex flex-col xs:flex-row gap-3 sm:gap-4 md:gap-5 justify-center lg:justify-start mb-6 sm:mb-8 lg:mb-0 relative"
             >
-              <a href="#art-gallery" onClick={() => handleScrollTo("art-gallery")}>
+              <a
+                href="#art-gallery"
+                onClick={() => handleScrollTo("art-gallery")}
+                className="w-full xs:w-auto"
+              >
                 <motion.button
                   whileHover={{
                     scale: 1.05,
@@ -136,7 +159,7 @@ const Hero = () => {
                     boxShadow: "0 5px 15px rgba(252, 148, 14, 0.4)",
                   }}
                   whileTap={{ scale: 0.98 }}
-                  className="px-8 py-3 rounded-md text-lg font-medium transition-all duration-300 shadow-lg w-full sm:w-auto"
+                  className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-md text-sm sm:text-base md:text-lg font-medium transition-all duration-300 shadow-lg w-full"
                   style={{
                     backgroundColor: brandColors.primary,
                     color: brandColors.light,
@@ -146,98 +169,165 @@ const Hero = () => {
                 </motion.button>
               </a>
 
-              <a href="#about" onClick={() => handleScrollTo("about")}>
+              <a 
+                href="#about" 
+                onClick={() => handleScrollTo("about")}
+                className="w-full xs:w-auto"
+              >
                 <motion.button
                   whileHover={{
                     scale: 1.05,
-                    backgroundColor: `${brandColors.light}22`,
+                    backgroundColor: `${brandColors.dark}08`,
                     borderColor: brandColors.secondary,
                     boxShadow: "0 5px 15px rgba(252, 148, 14, 0.2)",
                   }}
                   whileTap={{ scale: 0.98 }}
-                  className="px-8 py-3 rounded-md text-lg font-medium transition-all duration-300 w-full sm:w-auto"
+                  className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-md text-sm sm:text-base md:text-lg font-medium transition-all duration-300 w-full"
                   style={{
                     backgroundColor: "transparent",
-                    color: brandColors.light,
-                    border: `2px solid ${brandColors.light}`,
+                    color: brandColors.dark,
+                    border: `2px solid ${brandColors.dark}40`,
                   }}
                 >
                   Our Story
                 </motion.button>
               </a>
+
+              {/* Decorative accent dot - hidden on smaller screens */}
+              <div
+                className="absolute -left-6 -bottom-6 w-3 sm:w-4 h-3 sm:h-4 rounded-full hidden lg:block"
+                style={{ backgroundColor: brandColors.secondary }}
+              ></div>
             </motion.div>
           </motion.div>
 
-          {/* Image content with improved container and effects */}
+          {/* Image content with responsive styling */}
           <motion.div
-            className="w-full lg:w-1/2 flex items-center justify-center lg:justify-end relative"
+            className="w-full sm:w-4/5 md:w-3/4 lg:w-1/2 flex items-center justify-center lg:justify-end relative mx-auto lg:mx-0"
             variants={imageVariants}
             initial="hidden"
             animate={controls}
           >
-            {/* Decorative background element */}
-            <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-gradient-to-br from-green-500/20 to-orange-500/10 blur-3xl"></div>
-            
-            <div className="relative w-full max-w-lg">
+            {/* Decorative background elements - adjusted for mobile */}
+            <div className="absolute -top-8 -right-8 w-40 sm:w-48 md:w-56 lg:w-64 h-40 sm:h-48 md:h-56 lg:h-64 rounded-full bg-gradient-to-br from-green-500/20 to-orange-500/10 blur-3xl"></div>
+
+            <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
+              {/* Decorative border frame - adjusted for mobile */}
+              <div
+                className="absolute -right-2 sm:-right-3 md:-right-4 -top-2 sm:-top-3 md:-top-4 w-full h-full border-2 border-dashed rounded-lg z-0 opacity-30"
+                style={{ borderColor: brandColors.secondary }}
+              ></div>
+              <div
+                className="absolute -left-2 sm:-left-3 md:-left-4 -bottom-2 sm:-bottom-3 md:-bottom-4 w-full h-full border-2 border-dashed rounded-lg z-0 opacity-30"
+                style={{ borderColor: brandColors.primary }}
+              ></div>
+
+              {/* Main image container with responsive sizing */}
               <motion.div
-                className="rounded-lg overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.4)]"
-                whileHover={{ 
-                  scale: 1.02, 
+                className="rounded-lg overflow-hidden shadow-[0_10px_25px_rgba(0,0,0,0.15)] sm:shadow-[0_15px_35px_rgba(0,0,0,0.15)] md:shadow-[0_20px_50px_rgba(0,0,0,0.15)] relative z-10"
+                whileHover={{
+                  scale: 1.02,
                   transition: { duration: 0.3 },
-                  boxShadow: "0 25px 50px rgba(0,0,0,0.5)"
+                  boxShadow: "0 25px 50px rgba(0,0,0,0.2)",
                 }}
               >
-                {/* Gradient overlay to enhance image */}
+                {/* Subtle gradient overlay to enhance image */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent z-10"></div>
-                
+
                 <img
                   src={herobg}
                   alt="Art created from repurposed materials"
-                  className="w-full h-auto object-cover max-h-[500px]"
+                  className="w-full h-auto object-cover max-h-[280px] sm:max-h-[350px] md:max-h-[420px] lg:max-h-[500px]"
                 />
+
+                {/* Corner accents - smaller on mobile */}
+                <div className="absolute w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 -right-1 sm:-right-2 -top-1 sm:-top-2 overflow-hidden z-20">
+                  <div className="w-3 sm:w-4 h-3 sm:h-4 bg-white absolute right-0 bottom-0 transform rotate-45 translate-x-1/2 translate-y-1/2"></div>
+                </div>
+                <div className="absolute w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 -left-1 sm:-left-2 -bottom-1 sm:-bottom-2 overflow-hidden z-20">
+                  <div className="w-3 sm:w-4 h-3 sm:h-4 bg-white absolute left-0 top-0 transform rotate-45 -translate-x-1/2 -translate-y-1/2"></div>
+                </div>
               </motion.div>
 
-              {/* Image caption with improved styling */}
+              {/* Enhanced image caption with responsive styling */}
               <motion.div
-                className="absolute -bottom-5 -right-5 bg-gray-900 p-4 rounded-md shadow-xl border-l-4"
+                className="absolute -bottom-3 sm:-bottom-4 md:-bottom-5 -right-3 sm:-right-4 md:-right-5 bg-white p-2 sm:p-3 md:p-4 rounded-md shadow-xl border-l-4 z-20"
                 style={{ borderColor: brandColors.secondary }}
                 variants={childVariants}
-                whileHover={{ 
-                  scale: 1.05, 
-                  backgroundColor: "#1a1a1a",
-                  transition: { duration: 0.2 } 
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: "#f8f8f8",
+                  transition: { duration: 0.2 },
                 }}
               >
                 <p
-                  className="text-sm font-medium"
-                  style={{ color: brandColors.secondary }}
+                  className="text-xs sm:text-sm font-medium"
+                  style={{ color: brandColors.dark }}
                 >
-                  &quot;Reclaimed Beauty&quot; — 2023
+                  <span style={{ color: brandColors.secondary }}>
+                    &quot;Reclaimed Beauty&quot;
+                  </span>{" "}
+                  — 2023
                 </p>
               </motion.div>
-              
-              {/* Decorative element */}
-              <div className="absolute -top-4 -left-4 w-12 h-12 rounded-full" style={{ backgroundColor: brandColors.primary, opacity: 0.8 }}></div>
+
+              {/* Decorative element - adjusted for mobile */}
+              <div
+                className="absolute -top-4 sm:-top-5 md:-top-6 -left-4 sm:-left-5 md:-left-6 w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 rounded-full z-20"
+                style={{ backgroundColor: brandColors.primary, opacity: 0.8 }}
+              ></div>
+
+              {/* Additional accent dot - adjusted for mobile */}
+              <div
+                className="absolute -bottom-2 sm:-bottom-3 md:-bottom-4 left-1/2 w-2 sm:w-2.5 md:w-3 h-2 sm:h-2.5 md:h-3 rounded-full z-20"
+                style={{ backgroundColor: brandColors.secondary, opacity: 0.8 }}
+              ></div>
             </div>
           </motion.div>
         </div>
-        
-        {/* Optional scroll indicator */}
-        <motion.div 
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center"
+
+        {/* Enhanced scroll indicator with better mobile styling */}
+        <motion.div
+          className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-20"
           initial={{ opacity: 0, y: -10 }}
-          animate={{ 
-            opacity: 1, 
+          animate={{
+            opacity: 1,
             y: [0, 10, 0],
-            transition: { 
+            transition: {
               y: { repeat: Infinity, duration: 1.5, ease: "easeInOut" },
-              opacity: { delay: 1, duration: 1 }
-            }
+              opacity: { delay: 1, duration: 1 },
+            },
           }}
         >
-          <p className="text-white/70 text-sm mb-2">Scroll to explore</p>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 5L12 19M12 19L19 12M12 19L5 12" stroke="white" strokeOpacity="0.7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <p className="text-gray-600 text-xs sm:text-sm mb-1 sm:mb-2">Scroll to explore</p>
+          <svg
+            className="w-5 h-5 sm:w-6 sm:h-6"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="9"
+              stroke={brandColors.primary}
+              strokeWidth="1"
+              strokeOpacity="0.5"
+            />
+            <path
+              d="M8 12L12 16L16 12"
+              stroke={brandColors.primary}
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M12 8L12 16"
+              stroke={brandColors.primary}
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
         </motion.div>
       </div>
