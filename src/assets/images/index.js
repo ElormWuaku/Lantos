@@ -13,6 +13,8 @@ import wood from './wood.jpg';
 import product from './product.jpg';
 import product2 from './product2.jpg';
 import product3 from './product3.jpg';
+import product4 from './product4.jpg';
+import product5 from './product5.jpg';
 import art from './art.jpg';
 import art1 from './art1.jpg';
 import art3 from './art3.jpg';
@@ -28,4 +30,4 @@ import contactbg from './contactbg.jpg';
 import brand from './brand.jpg';
 import aboutbg from './aboutbg.jpg';
 
-export { hero,herobg, logo, hero2, table, table2, yellow, craftsman, about, logo2, hero4, wood, product, art, art1, art3, art4,art5, art6, art8, art9, art10, art11, art12, product2, product3, contactbg, brand, aboutbg };
+export { hero,herobg, logo, hero2, table, table2, yellow, craftsman, about, logo2, hero4, wood, product, art, art1, art3, art4,art5, art6, art8, art9, art10, art11, art12, product2, product3, contactbg, brand, aboutbg, product4, product5 };
