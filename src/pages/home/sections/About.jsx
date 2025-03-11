@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import ScrollSection from "../../../components/ScrollSection";
-import { aboutbg} from "../../../assets/images";
+import { aboutbg } from "../../../assets/images";
 
 const brandColors = {
   primary: "#4AA625", // Green as primary
@@ -11,14 +11,47 @@ const brandColors = {
 
 const About = () => {
   const [openDropdown, setOpenDropdown] = useState("philosophy");
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
 
+  // Toggle dropdown functionality
   const toggleDropdown = (section) => {
     setOpenDropdown(openDropdown === section ? null : section);
   };
 
+  // Handle scroll visibility with IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // If the section is 10% visible, trigger the animation
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+          // Once visible, no need to keep observing
+          observer.unobserve(sectionRef.current);
+        }
+      },
+      { threshold: 0.1 } // Start animation when 10% of the section is visible
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
   return (
     <ScrollSection id="about">
-      <div className="py-20 px-4 relative overflow-hidden">
+      <div 
+        ref={sectionRef}
+        className={`py-20 px-4 relative overflow-hidden transition-opacity duration-700 ease-in-out ${
+          isVisible ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
         {/* Background design elements */}
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-gray-50 to-gray-100 z-0"></div>
         <div className="absolute bottom-0 right-0 w-64 h-64 rounded-full bg-gradient-to-br from-green-100 to-green-200 blur-3xl opacity-70 z-0"></div>
@@ -26,7 +59,9 @@ const About = () => {
         
         <div className="container mx-auto relative z-10">
           {/* Header Section - Matching structure from previous sections */}
-          <div className="max-w-xl mx-auto text-center mb-16">
+          <div className={`max-w-xl mx-auto text-center mb-16 transition-all duration-700 delay-100 transform ${
+            isVisible ? 'translate-y-0' : 'translate-y-10'
+          }`}>
             <h2
               className="text-xl font-medium mb-3"
               style={{ color: brandColors.secondary }}
@@ -42,9 +77,10 @@ const About = () => {
             </h3>
 
             <div
-              className="h-1 w-24 mx-auto mb-8 rounded-full"
+              className="h-1 w-24 mx-auto mb-8 rounded-full transition-all duration-700 delay-200"
               style={{ 
-                background: `linear-gradient(90deg, ${brandColors.primary}, ${brandColors.secondary})` 
+                background: `linear-gradient(90deg, ${brandColors.primary}, ${brandColors.secondary})`,
+                width: isVisible ? "6rem" : "0"
               }}
             />
 
@@ -61,14 +97,22 @@ const About = () => {
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-col lg:flex-row items-center gap-12">
               {/* Image Column with decorative elements */}
-              <div className="w-full lg:w-1/2 relative">
+              <div className={`w-full lg:w-1/2 relative transition-all duration-700 delay-200 transform ${
+                isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'
+              }`}>
                 <div 
-                  className="absolute -right-4 -top-4 w-full h-full border-2 rounded-lg z-0"
-                  style={{ borderColor: brandColors.secondary }}
+                  className="absolute -right-4 -top-4 w-full h-full border-2 rounded-lg z-0 transition-all duration-700 delay-300"
+                  style={{ 
+                    borderColor: brandColors.secondary,
+                    transform: isVisible ? 'translate(0,0)' : 'translate(10px,10px)'
+                  }}
                 ></div>
                 <div 
-                  className="absolute -left-4 -bottom-4 w-full h-full border-2 rounded-lg z-0"
-                  style={{ borderColor: brandColors.primary }}
+                  className="absolute -left-4 -bottom-4 w-full h-full border-2 rounded-lg z-0 transition-all duration-700 delay-300"
+                  style={{ 
+                    borderColor: brandColors.primary,
+                    transform: isVisible ? 'translate(0,0)' : 'translate(-10px,-10px)'
+                  }}
                 ></div>
                 <div className="rounded-lg overflow-hidden shadow-xl relative z-10">
                   <div
@@ -83,16 +127,22 @@ const About = () => {
                 
                 {/* Decorative element */}
                 <div 
-                  className="hidden lg:block absolute -left-8 -bottom-8 w-16 h-16 rounded-full z-20"
+                  className={`hidden lg:block absolute -left-8 -bottom-8 w-16 h-16 rounded-full z-20 transition-all duration-700 delay-400 transform ${
+                    isVisible ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
+                  }`}
                   style={{ backgroundColor: brandColors.primary }}
                 ></div>
               </div>
 
               {/* Text Column with stylish layout */}
-              <div className="w-full lg:w-1/2 p-6 md:p-8 rounded-xl bg-white shadow-lg">
+              <div className={`w-full lg:w-1/2 p-6 md:p-8 rounded-xl bg-white shadow-lg transition-all duration-700 delay-300 transform ${
+                isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'
+              }`}>
                 {/* Vision Statement in highlight box */}
                 <div 
-                  className="p-4 mb-6 rounded-lg"
+                  className={`p-4 mb-6 rounded-lg transition-all duration-700 delay-400 transform ${
+                    isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
+                  }`}
                   style={{ backgroundColor: `${brandColors.primary}10` }}
                 >
                   <p 
@@ -111,11 +161,14 @@ const About = () => {
                       openDropdown === "philosophy" 
                         ? "border-transparent shadow-lg" 
                         : "border-gray-200"
+                    } ${
+                      isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
                     }`}
                     style={{
                       backgroundColor: openDropdown === "philosophy" 
                         ? `${brandColors.primary}08` 
                         : "white",
+                      transitionDelay: isVisible ? "500ms" : "0ms"
                     }}
                   >
                     <button 
@@ -160,8 +213,8 @@ const About = () => {
                       <div 
                         className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ${
                           openDropdown === "philosophy" 
-                            ? `rotate-180 bg-${brandColors.secondary}` 
-                            : "bg-gray-100"
+                            ? `rotate-180` 
+                            : ""
                         }`}
                         style={{ 
                           backgroundColor: openDropdown === "philosophy" 
@@ -207,11 +260,14 @@ const About = () => {
                       openDropdown === "expertise" 
                         ? "border-transparent shadow-lg" 
                         : "border-gray-200"
+                    } ${
+                      isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
                     }`}
                     style={{
                       backgroundColor: openDropdown === "expertise" 
                         ? `${brandColors.primary}08` 
                         : "white",
+                      transitionDelay: isVisible ? "600ms" : "0ms"
                     }}
                   >
                     <button 
@@ -256,8 +312,8 @@ const About = () => {
                       <div 
                         className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ${
                           openDropdown === "expertise" 
-                            ? `rotate-180 bg-${brandColors.primary}` 
-                            : "bg-gray-100"
+                            ? `rotate-180` 
+                            : ""
                         }`}
                         style={{ 
                           backgroundColor: openDropdown === "expertise" 
@@ -303,11 +359,14 @@ const About = () => {
                       openDropdown === "commitment" 
                         ? "border-transparent shadow-lg" 
                         : "border-gray-200"
+                    } ${
+                      isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
                     }`}
                     style={{
                       backgroundColor: openDropdown === "commitment" 
                         ? `${brandColors.primary}08` 
                         : "white",
+                      transitionDelay: isVisible ? "700ms" : "0ms"
                     }}
                   >
                     <button 
@@ -352,8 +411,8 @@ const About = () => {
                       <div 
                         className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500 ${
                           openDropdown === "commitment" 
-                            ? `rotate-180 bg-${brandColors.secondary}` 
-                            : "bg-gray-100"
+                            ? `rotate-180`
+                            : ""
                         }`}
                         style={{ 
                           backgroundColor: openDropdown === "commitment" 
@@ -395,10 +454,15 @@ const About = () => {
                 </div>
                 
                 {/* Call to action button */}
-                <div className="mt-8">
+                <div 
+                  className={`mt-8 transition-all duration-700 transform ${
+                    isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
+                  }`}
+                  style={{ transitionDelay: isVisible ? "800ms" : "0ms" }}
+                >
                   <a href="#innovator">
                     <button
-                      className="px-6 py-3 rounded-md text-base font-medium transition-all duration-300 shadow-md"
+                      className="px-6 py-3 rounded-md text-base font-medium transition-all duration-300 shadow-md hover:shadow-lg"
                       style={{
                         backgroundColor: brandColors.secondary,
                         color: brandColors.light,

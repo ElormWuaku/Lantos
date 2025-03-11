@@ -12,52 +12,50 @@ const brandColors = {
 
 const Hero = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, amount: 0.2 });
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
   const controls = useAnimation();
 
   useEffect(() => {
     if (isInView) {
       controls.start("visible");
-    } else {
-      controls.start("hidden");
     }
   }, [isInView, controls]);
 
-  // Hero content variants
+  // Hero content variants - faster animations
   const heroVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        duration: 0.8,
-        staggerChildren: 0.2,
+        duration: 0.5, // Reduced from 0.8
+        staggerChildren: 0.1, // Reduced from 0.2
       },
     },
   };
 
   const childVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 15, opacity: 0 }, // Reduced y distance from 20
     visible: {
       y: 0,
       opacity: 1,
       transition: {
         type: "spring",
-        damping: 12,
-        stiffness: 100,
+        damping: 20, // Increased from 12
+        stiffness: 150, // Increased from 100
       },
     },
   };
 
   const imageVariants = {
-    hidden: { x: 50, opacity: 0 },
+    hidden: { x: 30, opacity: 0 }, // Reduced x distance from 50
     visible: {
       x: 0,
       opacity: 1,
       transition: {
         type: "spring",
-        damping: 15,
-        stiffness: 80,
-        delay: 0.3,
+        damping: 25, // Increased from 15
+        stiffness: 120, // Increased from 80
+        delay: 0.1, // Reduced from 0.3
       },
     },
   };
@@ -71,7 +69,8 @@ const Hero = () => {
   };
 
   return (
-    <ScrollSection>
+    // Set immediate prop to true for the hero section to appear right away
+    <ScrollSection immediate={true} threshold={0.1}>
       {/* Modern Hero section with responsive design */}
       <div className="relative min-h-[100svh] overflow-hidden pt-16 sm:pt-20">
         {/* Base background gradient */}
@@ -295,7 +294,7 @@ const Hero = () => {
             y: [0, 10, 0],
             transition: {
               y: { repeat: Infinity, duration: 1.5, ease: "easeInOut" },
-              opacity: { delay: 1, duration: 1 },
+              opacity: { delay: 0.5, duration: 0.5 }, // Faster appearance
             },
           }}
         >

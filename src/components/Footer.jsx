@@ -103,11 +103,11 @@ const Footer = () => {
         viewport={{ once: true, amount: 0.2 }}
         variants={containerVariants}
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Column 1: Company Info */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Column 1: Company Info - Now wider on larger screens */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col space-y-4"
+            className="flex flex-col space-y-4 md:col-span-1"
           >
             <h3
               className="text-xl font-bold"
@@ -147,10 +147,10 @@ const Footer = () => {
             </div>
           </motion.div>
 
-          {/* Column 2: Quick Links - Fixed implementation */}
+          {/* Column 2: Quick Links - Centered in the new layout */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col space-y-4"
+            className="flex flex-col space-y-4 md:col-span-1"
           >
             <h3
               className="text-xl font-bold"
@@ -186,10 +186,10 @@ const Footer = () => {
             </ul>
           </motion.div>
 
-          {/* Column 3: Contact Info */}
+          {/* Column 3: Contact Info - Now last column */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col space-y-4"
+            className="flex flex-col space-y-4 md:col-span-1"
           >
             <h3
               className="text-xl font-bold"
@@ -210,7 +210,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center">
                 <a
-                  href="tel:+233500353555"
+                  href="tel:+233203390633"
                   className="flex items-center hover:underline"
                 >
                   <Phone
@@ -239,58 +239,6 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
-          </motion.div>
-
-          {/* Column 4: Newsletter - Added validation and improved UX */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col space-y-4"
-          >
-            <h3
-              className="text-xl font-bold"
-              style={{ color: brandColors.primary }}
-            >
-              Stay Updated
-            </h3>
-            <p
-              className="text-sm leading-relaxed"
-              style={{ color: brandColors.dark }}
-            >
-              Subscribe to our newsletter for the latest updates on our products
-              and innovations.
-            </p>
-            <form
-              className="flex flex-col space-y-3"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <div className="relative">
-                <Mail
-                  size={18}
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2"
-                  style={{ color: brandColors.primary }}
-                />
-                <input
-                  type="email"
-                  placeholder="Your Email"
-                  className="w-full pl-10 pr-3 py-2 text-sm rounded-md border focus:outline-none focus:ring-2 focus:ring-opacity-50"
-                  style={{
-                    borderColor: `${brandColors.primary}50`,
-                    "--tw-ring-color": brandColors.primary,
-                  }}
-                  required
-                  aria-label="Email address"
-                />
-              </div>
-              <motion.button
-                type="submit"
-                className="w-full py-2 rounded-md text-white text-sm font-medium transition-colors duration-300"
-                style={{ backgroundColor: brandColors.primary }}
-                whileHover={{ backgroundColor: brandColors.secondary }}
-                whileTap={{ scale: 0.97 }}
-              >
-                Subscribe
-              </motion.button>
-            </form>
           </motion.div>
         </div>
 

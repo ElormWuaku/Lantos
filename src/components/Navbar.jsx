@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Moon, Sun, Facebook, Instagram, ArrowRight } from "lucide-react";
+import { Menu, X, Phone, Facebook, Instagram, ArrowRight } from "lucide-react";
 import { logo2 } from "../assets/images";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
@@ -48,10 +47,6 @@ const Navbar = () => {
   }, [isScrolled]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    document.documentElement.classList.toggle("dark");
-  };
 
   const menuVariants = {
     closed: {
@@ -112,27 +107,59 @@ const Navbar = () => {
   // Check if item is active
   const isActive = (id) => activeSection === id;
 
+  // Social media links with updated Instagram URL
+  const socialLinks = [
+    {
+      name: "Instagram",
+      icon: <Instagram className="w-6 h-6" />,
+      url: "https://www.instagram.com/lantos_creative_concept?igsh=MTg2a29nbHQ5OXlnMA%3D%3D&utm_source=qr",
+      ariaLabel: "Instagram"
+    },
+    {
+      name: "X",
+      icon: <svg
+        className="w-6 h-6"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"
+          fill="currentColor"
+        />
+      </svg>,
+      url: "#",
+      ariaLabel: "X (Twitter)"
+    },
+    {
+      name: "Facebook",
+      icon: <Facebook className="w-6 h-6" />,
+      url: "#",
+      ariaLabel: "Facebook"
+    }
+  ];
+
   return (
     <nav
-      className={`fixed top-0 w-full bg-white dark:bg-gray-900 shadow-lg z-50 text-gray-700 
-     dark:text-gray-200 transition-all duration-300 ${
+      className={`fixed top-0 w-full bg-white shadow-lg z-50 text-gray-700 
+     transition-all duration-300 ${
        isScrolled ? "py-1" : "py-2"
      }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Left: Logo - Increased z-index to appear above mobile menu */}
-        <a href="#home">
-          <motion.div 
-            whileHover={{ scale: 1.05 }} 
-            className="flex-shrink-0 relative z-[60] cursor-pointer"
-          >
-            <img
-              src={logo2}
-              alt="logo"
-              className="h-16 w-auto object-contain max-w-[150px]"
-            />
-          </motion.div>
+          <a href="#home">
+            <motion.div 
+              whileHover={{ scale: 1.05 }} 
+              className="flex-shrink-0 relative z-[60] cursor-pointer"
+            >
+              <img
+                src={logo2}
+                alt="logo"
+                className="h-16 w-auto object-contain max-w-[150px]"
+              />
+            </motion.div>
           </a>
 
           {/* Desktop Menu - Evenly Distributed Layout */}
@@ -145,8 +172,8 @@ const Navbar = () => {
                   href={item.href}
                   className={`relative font-serif transition-colors duration-200 ${
                     isActive(item.id)
-                      ? "text-[#4AA625] dark:text-[#4AA625] font-bold"
-                      : "text-gray-700 dark:text-gray-200 hover:text-[#4AA625] dark:hover:text-[#4AA625]"
+                      ? "text-[#4AA625] font-bold"
+                      : "text-gray-700 hover:text-[#4AA625]"
                   }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -162,7 +189,7 @@ const Navbar = () => {
               ))}
             </div>
             
-            {/* Right: Shop, Contact, Theme Toggle */}
+            {/* Right: Shop, Contact, Call Button */}
             <div className="flex items-center justify-end space-x-4">
               {rightMenuItems.map((item) => (
                 <motion.a
@@ -170,8 +197,8 @@ const Navbar = () => {
                   href={item.href}
                   className={`relative font-serif transition-colors duration-200 ${
                     isActive(item.id)
-                      ? "text-[#4AA625] dark:text-[#4AA625] font-bold"
-                      : "text-gray-700 dark:text-gray-200 hover:text-[#4AA625] dark:hover:text-[#4AA625]"
+                      ? "text-[#4AA625] font-bold"
+                      : "text-gray-700 hover:text-[#4AA625]"
                   }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -185,19 +212,15 @@ const Navbar = () => {
                   )}
                 </motion.a>
               ))}
-              <motion.button
+              <motion.a
+                href="tel:+233203390633"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={toggleTheme}
-                className="p-2 ml-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
-                aria-label="Toggle theme"
+                className="p-2 ml-2 rounded-full hover:bg-gray-100 bg-[#4AA625] text-white flex items-center justify-center"
+                aria-label="Call us"
               >
-                {isDark ? (
-                  <Sun className="w-5 h-5 text-[#FC930B]" />
-                ) : (
-                  <Moon className="w-5 h-5 text-[#4AA625]" />
-                )}
-              </motion.button>
+                <Phone className="w-5 h-5" />
+              </motion.a>
             </div>
           </div>
 
@@ -207,7 +230,7 @@ const Navbar = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={toggleMenu}
-              className="p-2 rounded-md text-[#4AA625] dark:text-[#4AA625]"
+              className="p-2 rounded-md text-[#4AA625]"
               aria-label="Toggle menu"
             >
               {isOpen ? (
@@ -228,7 +251,7 @@ const Navbar = () => {
             animate="open"
             exit="closed"
             variants={menuVariants}
-            className="md:hidden fixed inset-0 top-[64px] bg-white dark:bg-gray-900 z-[55] flex flex-col"
+            className="md:hidden fixed inset-0 top-[64px] bg-white z-[55] flex flex-col"
           >
             <div className="flex flex-col h-full px-4 pt-4 pb-6 flex-grow">
               {/* Current Page Indicator */}
@@ -240,7 +263,7 @@ const Navbar = () => {
                   transition={{ delay: 0.2 }}
                 >
                   <motion.p
-                    className="font-serif italic text-lg text-[#4AA625] dark:text-[#4AA625] flex items-center justify-center"
+                    className="font-serif italic text-lg text-[#4AA625] flex items-center justify-center"
                     variants={cursorVariants}
                     animate="animate"
                   >
@@ -264,8 +287,8 @@ const Navbar = () => {
                     custom={i}
                     className={`relative block text-3xl font-semibold py-5 transition-all duration-200 text-center ${
                       isActive(item.id)
-                        ? "text-[#4AA625] dark:text-[#4AA625] font-bold"
-                        : "text-gray-700 dark:text-gray-200 hover:text-[#4AA625] dark:hover:text-[#4AA625]"
+                        ? "text-[#4AA625] font-bold"
+                        : "text-gray-700 hover:text-[#4AA625]"
                     }`}
                     onClick={toggleMenu}
                   >
@@ -279,59 +302,34 @@ const Navbar = () => {
                 ))}
               </div>
 
-              {/* Theme Toggle and Social Links */}
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-6 w-full fixed bottom-0 left-0 bg-white dark:bg-gray-900 pb-8">
+              {/* Call Button and Social Links */}
+              <div className="border-t border-gray-200 pt-6 w-full fixed bottom-0 left-0 bg-white pb-8">
                 <div className="flex justify-center space-x-8 items-center">
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={toggleTheme}
-                    className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-[#4AA625] dark:text-[#FC930B]"
-                    aria-label="Toggle theme"
-                  >
-                    {isDark ? (
-                      <Sun className="w-6 h-6" />
-                    ) : (
-                      <Moon className="w-6 h-6" />
-                    )}
-                  </motion.button>
                   <motion.a
-                    href="#"
+                    href="tel:+233203390633"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className="text-[#4AA625] dark:text-[#4AA625] hover:text-[#FC930B] dark:hover:text-[#FC930B]"
-                    aria-label="Instagram"
+                    className="p-2 rounded-full bg-[#4AA625] text-white"
+                    aria-label="Call us"
                   >
-                    <Instagram className="w-6 h-6" />
+                    <Phone className="w-6 h-6" />
                   </motion.a>
-                  <motion.a
-                    href="#"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="text-[#4AA625] dark:text-[#4AA625] hover:text-[#FC930B] dark:hover:text-[#FC930B]"
-                    aria-label="X (Twitter)"
-                  >
-                    <svg
-                      className="w-6 h-6"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                  
+                  {/* Updated Social Links */}
+                  {socialLinks.map((social, index) => (
+                    <motion.a
+                      key={index}
+                      href={social.url}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                      className="text-[#4AA625] hover:text-[#FC930B]"
+                      aria-label={social.ariaLabel}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <path
-                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  </motion.a>
-                  <motion.a
-                    href="#"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="text-[#4AA625] dark:text-[#4AA625] hover:text-[#FC930B] dark:hover:text-[#FC930B]"
-                    aria-label="Facebook"
-                  >
-                    <Facebook className="w-6 h-6" />
-                  </motion.a>
+                      {social.icon}
+                    </motion.a>
+                  ))}
                 </div>
               </div>
             </div>
