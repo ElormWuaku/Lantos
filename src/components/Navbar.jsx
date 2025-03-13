@@ -97,7 +97,7 @@ const Navbar = () => {
   ];
 
   const rightMenuItems = [
-    { title: "Shop", href: "#shop", id: "shop" },
+    { title: "Shop", href: "https://paystack.shop/lantos-creative-concept", id: "shop", external: true },
     { title: "Contact", href: "#contact", id: "contact" },
   ];
 
@@ -195,6 +195,8 @@ const Navbar = () => {
                 <motion.a
                   key={item.title}
                   href={item.href}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noopener noreferrer" : undefined}
                   className={`relative font-serif transition-colors duration-200 ${
                     isActive(item.id)
                       ? "text-[#4AA625] font-bold"
@@ -283,6 +285,8 @@ const Navbar = () => {
                   <motion.a
                     key={item.title}
                     href={item.href}
+                    target={item.external ? "_blank" : undefined}
+                    rel={item.external ? "noopener noreferrer" : undefined}
                     variants={linkVariants}
                     custom={i}
                     className={`relative block text-3xl font-semibold py-5 transition-all duration-200 text-center ${

@@ -1,4 +1,3 @@
-
 import ScrollSection from "../../../components/ScrollSection";
 import {art10, art11, art12, herobg} from "../../../assets/images";
 
@@ -47,15 +46,18 @@ const ArtGallery = () => {
     }
   ];
 
-  // Generate Paystack link (this would be your actual Paystack store link)
-  const generatePaystackLink = (product) => {
-    // This would be replaced with your actual Paystack store URL
-    return `https://paystack.com/store/lantoscreatives?product=${product.slug}`;
+  // Paystack storefront link
+  const paystackStoreUrl = "https://paystack.shop/lantos-creative-concept";
+
+  // Generate Paystack link for individual products
+  const generatePaystackLink = () => {
+    // This uses the main storefront link instead of the previous placeholder
+    return `${paystackStoreUrl}`;
   };
 
-  // Generate link for "Shop Now" main button
+  // Generate link for "Shop All Artwork" main button
   const getShopAllLink = () => {
-    return "https://paystack.com/store/lantoscreatives/art-gallery";
+    return paystackStoreUrl;
   };
 
   return (
